@@ -11,7 +11,7 @@ go install github.com/fnxpt/cyclonedx-enrich@latest
 ## Run with docker
 
 ```
-docker run -v `pwd`:/ fnxpt/cyclonedx-enrich:latest --file bom.json --pattern "com.example" --license "MIT License" > output.json
+docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.json --pattern "(pkg\:maven\/com.example.+)|(pkg:npm\/(@|%40)example\/.+)" --license "MIT License" > output.json
 ```
 
 ## Usage
