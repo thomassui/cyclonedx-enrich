@@ -1,15 +1,17 @@
 package enrich
 
 import (
-	"strings"
+	"regexp"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
 
 func Enrich(sbom *cyclonedx.BOM, pattern string, license string) {
 	changed := *sbom.Components
+	r, _ := regexp.Compile(pattern)
+
 	for idx, comp := range changed {
-		if strings.Contains(comp.PackageURL, pattern) {
+		if r.MatchString(comp.PackageURL) {
 
 			if comp.Licenses == nil {
 				changed[idx].Licenses = &cyclonedx.Licenses{{License: &cyclonedx.License{ID: license}}}
