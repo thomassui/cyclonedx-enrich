@@ -28,4 +28,6 @@ Usage:
     	output file (default: stdout)
   -pattern string
     	sets the pattern to add license
+  -force
+      sets the license even if its already filled
 ```

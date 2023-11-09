@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -12,6 +13,8 @@ import (
 )
 
 var version = "0.0.1"
+var force bool
+var patternFile string = ""
 var pattern string = ""
 var license string = ""
 
@@ -36,7 +39,9 @@ func parseArguments() {
 		flag.PrintDefaults()
 	}
 
+	flag.BoolVar(&force, "force", false, "sets the license even if its already filled")
 	flag.StringVar(&pattern, "pattern", "", "sets the pattern to add license")
+	flag.StringVar(&patternFile, "pattern-file", "", "sets file with the patterns to add licenses")
 	flag.StringVar(&license, "license", "", "sets license to be added")
 
 	flag.Func("file", "file to be processed", handleFile)
@@ -67,30 +72,31 @@ func parseArguments() {
 }
 
 func handleFile(value string) error {
-	if _, err := os.Stat(value); os.IsNotExist(err) {
-		fmt.Printf("file %s doesn't exist\n", value)
-		return err
-	}
 
-	file, err := os.Open(value)
-
-	if err != nil {
-		fmt.Printf("unable to open file %s\n", value)
-		return err
-	}
-
-	bom, err := parseSBOM(file)
+	bom, err := parseSBOM(value)
 
 	if err != nil {
 		fmt.Printf("unable to parse file %s\n", value)
 		return err
 	}
 
-	if len(pattern) == 0 || len(license) == 0 {
+	patterns := make(map[string][]string)
+
+	if len(patternFile) > 0 {
+		patterns, err = parsePatterns(patternFile)
+
+		if err != nil {
+			fmt.Printf("unable to parse patterns file %s\n", patternFile)
+			return err
+		}
+
+	} else if len(pattern) > 0 && len(license) > 0 {
+		patterns[pattern] = []string{license}
+	} else {
 		panic("unable to enrich without license and pattern")
 	}
 
-	enrich.Enrich(bom, pattern, license)
+	enrich.Enrich(bom, patterns, force)
 
 	encoder := cyclonedx.NewBOMEncoder(output, outputFormat)
 	encoder.Encode(bom)
@@ -98,15 +104,56 @@ func handleFile(value string) error {
 	return nil
 }
 
-func parseSBOM(input io.Reader) (*cyclonedx.BOM, error) {
+func parseSBOM(value string) (*cyclonedx.BOM, error) {
+
+	file, err := openFile(value)
+
+	if err != nil {
+		fmt.Printf("unable to open file %s\n", value)
+		return nil, err
+	}
 
 	bom := &cyclonedx.BOM{}
-	decoder := cyclonedx.NewBOMDecoder(input, cyclonedx.BOMFileFormatJSON)
-	err := decoder.Decode(bom)
+	decoder := cyclonedx.NewBOMDecoder(file, cyclonedx.BOMFileFormatJSON)
+	err = decoder.Decode(bom)
 
 	if err != nil {
 		return nil, err
 	}
 
 	return bom, err
+}
+
+func parsePatterns(value string) (map[string][]string, error) {
+	output := make(map[string][]string)
+
+	file, err := openFile(value)
+
+	if err != nil {
+		fmt.Printf("unable to open file %s\n", value)
+		return nil, err
+	}
+
+	byteValue, err := io.ReadAll(file)
+
+	if err != nil {
+		fmt.Printf("unable to open file %s\n", value)
+		return nil, err
+	}
+
+	if err := json.Unmarshal(byteValue, &output); err != nil {
+		fmt.Printf("unable to parse file %s\n", value)
+		return nil, err
+	}
+
+	return output, nil
+}
+
+func openFile(value string) (*os.File, error) {
+	if _, err := os.Stat(value); os.IsNotExist(err) {
+		fmt.Printf("file %s doesn't exist\n", value)
+		return nil, err
+	}
+
+	return os.Open(value)
 }
