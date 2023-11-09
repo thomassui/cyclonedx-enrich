@@ -9,10 +9,15 @@ Enrich cyclonedx files with a pattern
 go install github.com/fnxpt/cyclonedx-enrich@latest
 ```
 
-## Run with docker
+## Run with docker with pattern
 
 ```
 docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.json --pattern "(pkg\:maven\/com.example.+)|(pkg:npm\/(@|%40)example\/.+)" --license "MIT License" > output.json
+```
+
+## Run with docker with pattern file
+```
+docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.json --pattern-file sbom/pattern.json > output.json
 ```
 
 ## Usage
@@ -20,6 +25,8 @@ docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.jso
 Usage:
   -file value
     	file to be processed
+  -force
+    	sets the license even if its already filled
   -format value
     	output format - json/xml (default: json)
   -license string
@@ -28,6 +35,6 @@ Usage:
     	output file (default: stdout)
   -pattern string
     	sets the pattern to add license
-  -force
-      sets the license even if its already filled
+  -pattern-file string
+    	sets file with the patterns to add licenses
 ```
