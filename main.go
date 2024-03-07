@@ -12,7 +12,7 @@ import (
 	"github.com/CycloneDX/cyclonedx-go"
 )
 
-var version = "0.0.1"
+var version = "0.0.3"
 var force bool
 var patternFile string = ""
 var pattern string = ""
