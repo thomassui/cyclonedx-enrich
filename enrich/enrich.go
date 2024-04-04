@@ -35,7 +35,7 @@ func getLicensesObject(input []string) *cyclonedx.Licenses {
 
 	for _, id := range input {
 		licenses = append(licenses, cyclonedx.LicenseChoice{
-			License: &cyclonedx.License{ID: id},
+			License: &cyclonedx.License{Name: id},
 		})
 	}
 	return &licenses
