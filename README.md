@@ -1,7 +1,7 @@
 # cyclonedx-enrich
 ![Coverage](https://img.shields.io/badge/Coverage-0.0%25-red)
 
-Enrich cyclonedx files with a pattern
+Enrich cyclonedx files
 
 ## Install
 
@@ -9,32 +9,28 @@ Enrich cyclonedx files with a pattern
 go install github.com/fnxpt/cyclonedx-enrich@latest
 ```
 
-## Run with docker with pattern
+## Run server with docker
 
 ```
-docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.json --pattern "(pkg\:maven\/com.example.+)|(pkg:npm\/(@|%40)example\/.+)" --license "MIT License" > output.json
+docker run --env-file ./.env fnxpt/cyclonedx-enrich:latest
 ```
 
-## Run with docker with pattern file
+## Example to call server
+
 ```
-docker run -v `pwd`/sbom:/sbom fnxpt/cyclonedx-enrich:latest --file sbom/bom.json --pattern-file sbom/pattern.json > output.json
+curl -X POST http://127.0.0.1:8080/sbom/enrich -H "X-Api-Key: DUMMY" -d @bom.json
 ```
+
 
 ## Usage
 ```
 Usage:
-  -file value
-    	file to be processed
-  -force
-    	sets the license even if its already filled
-  -format value
-    	output format - json/xml (default: json)
-  -license string
-    	sets license to be added
-  -output value
-    	output file (default: stdout)
-  -pattern string
-    	sets the pattern to add license
-  -pattern-file string
-    	sets file with the patterns to add licenses
+    -database-download
+    	Downloads database from source
+  -database-import value
+    	Imports cyclonedx component into database
+  -database-register
+    	Registers database entities
+  -server
+    	Starts server
 ```

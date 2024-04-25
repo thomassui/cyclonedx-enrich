@@ -1,0 +1,30 @@
+- rule: .*com.example.*
+  licenses:
+    - Example License
+- rule: .*io.example.*
+  licenses:
+    - MIT License
+- rule: pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2.*
+  licenses:
+    - CDDL
+    - GPL-2.0
+- rule: pkg:maven/com.sun.xml.ws/release-documentation@2.3.2.*
+  licenses:
+    - CDDL
+    - GPL-2.0
+- rule: pkg:maven/com.sun.xml.ws/samples@2.3.2.*
+  licenses:
+    - CDDL
+    - GPL-2.0
+- rule: pkg:maven/javax.servlet/servlet-api@2.5.*
+  licenses:
+    - Apache-2.0
+- rule: pkg:maven/org.antlr/antlr-runtime@3.4.*
+  licenses:
+    - BSD-1-Clause
+- rule: pkg:maven/org.javamoney/moneta@1.4.*
+  licenses:
+    - Apache-2.0
+- rule: pkg:maven/org.openapitools/jackson-databind-nullable@0.2.2.*
+  licenses:
+    - Apache-2.0
