@@ -12,7 +12,7 @@ go install github.com/fnxpt/cyclonedx-enrich@latest
 ## Run server with docker
 
 ```
-docker run --env-file ./.env fnxpt/cyclonedx-enrich:latest
+docker run --env-file ./.env fnxpt/cyclonedx-enrich:latest --server
 ```
 
 ## Example to call server
@@ -21,6 +21,9 @@ docker run --env-file ./.env fnxpt/cyclonedx-enrich:latest
 curl -X POST http://127.0.0.1:8080/sbom/enrich -H "X-Api-Key: DUMMY" -d @bom.json
 ```
 
+## Data
+
+Database and Data is stored in this [repo](https://github.com/fnxpt/cyclonedx-enrich-data)
 
 ## Usage
 ```
