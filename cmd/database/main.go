@@ -2,6 +2,7 @@ package database
 
 import (
 	"cyclonedx-enrich/models"
+	"errors"
 	"os"
 
 	"gorm.io/driver/sqlite"
@@ -29,5 +30,22 @@ func (c DatabaseCMD) Commands() []models.Command {
 
 func connect() (*gorm.DB, error) {
 	filename := os.Getenv("DATABASE_FILE")
+
+	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
+		if err := create(filename); err != nil {
+			return nil, err
+		}
+	}
+
 	return gorm.Open(sqlite.Open(filename), &gorm.Config{})
+}
+
+func create(filename string) error {
+	_, err := os.Create(filename)
+
+	if err != nil {
+		return err
+	}
+
+	return register()
 }

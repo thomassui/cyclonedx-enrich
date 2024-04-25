@@ -15,9 +15,5 @@ func register() error {
 
 	err = db.AutoMigrate(entities...)
 
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
