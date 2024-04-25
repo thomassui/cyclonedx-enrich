@@ -76,7 +76,7 @@ func getLicenses(component *cyclonedx.Component) []models.License {
 func getProperties(component *cyclonedx.Component) []models.Property {
 	output := make([]models.Property, 0)
 
-	if component.Licenses == nil {
+	if component.Properties == nil {
 		return output
 	}
 
@@ -90,7 +90,7 @@ func getProperties(component *cyclonedx.Component) []models.Property {
 func getReferences(component *cyclonedx.Component) []models.Reference {
 	output := make([]models.Reference, 0)
 
-	if component.Licenses == nil {
+	if component.ExternalReferences == nil {
 		return output
 	}
 
