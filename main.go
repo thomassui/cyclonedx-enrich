@@ -3,12 +3,12 @@ package main
 import (
 	"cyclonedx-enrich/cmd/api"
 	"cyclonedx-enrich/cmd/database"
+	"cyclonedx-enrich/cmd/sbom"
 	"cyclonedx-enrich/models"
 	"flag"
 
 	_ "github.com/joho/godotenv/autoload"
 )
-
 
 func main() {
 	flag.CommandLine = flag.NewFlagSet("", flag.ExitOnError)
@@ -20,6 +20,7 @@ func getCommands() []models.Commandable {
 	return []models.Commandable{
 		database.DatabaseCMD{},
 		api.ApiCMD{},
+		sbom.SbomCMD{},
 	}
 }
 
