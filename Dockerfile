@@ -1,15 +1,13 @@
 FROM golang:latest AS builder
 WORKDIR /go/src/
-ENV CGO_ENABLED=0
 
 ADD . .
 
 RUN GIN_MODE=release go build -ldflags="-s -w" -o release/cyclonedx-enrich .
 
-FROM scratch AS runtime
-WORKDIR /
+FROM cgr.dev/chainguard/wolfi-base:latest AS runtime
 
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /go/src/release/cyclonedx-enrich .
+COPY --from=builder --chown=nonroot:nonroot /go/src/release/ /app
+WORKDIR /app
 
-ENTRYPOINT [ "/cyclonedx-enrich"]
+ENTRYPOINT [ "/app/cyclonedx-enrich"]

@@ -7,10 +7,37 @@ on:
 permissions:
   contents: write
 
+env:
+  REGISTRY_IMAGE: fnxpt/cyclonedx-enrich
+
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - linux/arm64/v8
+          - linux/amd64
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+      - uses: actions/checkout@v4
+      - name: Go Build Cache for Docker
+        uses: actions/cache@v3
+        with:
+          path: go-build-cache
+          key: ${{ runner.os }}-go-build-cache-${{ matrix.platform }}-$${{ hashFiles('**/go.sum') }}
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+      - name: inject go-build-cache into docker
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
+        with:
+          cache-source: go-build-cache
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
@@ -19,11 +46,67 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v5
         with:
-          push: true
-          platforms: linux/arm64/v8,linux/amd64
-          tags: fnxpt/cyclonedx-enrich:latest,fnxpt/cyclonedx-enrich:${{ github.ref_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          context: .
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+      - name: Export digest
+        run: |
+          mkdir -p /tmp/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "/tmp/digests/${digest#sha256:}"
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - docker
+    steps:
+      -
+        name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digests-*
+          merge-multiple: true
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Create manifest list and push
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+      -
+        name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
+
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -31,8 +114,8 @@ jobs:
         goos: [linux, darwin]
         goarch: [amd64, arm64]
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
       with:
         go-version: '^1.22.0'
     - run: go build -o dist/cyclonedx-enrich-${{ matrix.goos }}-${{ matrix.goarch }} .
