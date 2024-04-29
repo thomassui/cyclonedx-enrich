@@ -58,6 +58,7 @@ func loadEnrichers() []models.Enricher {
 		&licenses.DatabaseEnricher{},
 		&licenses.RegexpEnricher{},
 		&licenses.ManagerEnricher{},
+		&licenses.ExtractEnricher{},
 
 		//hashes
 		&hashes.DatabaseEnricher{},
