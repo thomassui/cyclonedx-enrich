@@ -5,9 +5,7 @@ import (
 	"cyclonedx-enrich/utils"
 	"fmt"
 	"log/slog"
-	"net/http"
 	"strings"
-	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/vifraa/gopom"
@@ -16,7 +14,6 @@ import (
 var log = slog.Default()
 
 var endpoint = "https://search.maven.org/remotecontent?filepath="
-var client = &http.Client{Timeout: 10 * time.Second}
 
 type MavenEnricher struct {
 	models.Enricher
@@ -34,13 +31,15 @@ func (e *MavenEnricher) Skip(component *cyclonedx.Component) bool {
 		//SKIP
 		return true
 	}
+
 	return false
 }
 
 func (e *MavenEnricher) Enrich(component *cyclonedx.Component) error {
-	url := fmt.Sprintf("%s/%s/%s/%s-%s.pom", endpoint, strings.ReplaceAll(component.Group, ".", "/"), component.Name, component.Version, component.Name, component.Version)
+	url := fmt.Sprintf("%s%s/%s/%s/%s-%s.pom", endpoint, strings.ReplaceAll(component.Group, ".", "/"), component.Name, component.Version, component.Name, component.Version)
 
-	r, err := client.Get(url)
+	r, err := utils.Request(url)
+
 	if err != nil {
 		log.Error("error with request",
 			slog.String("package", component.PackageURL),
@@ -60,12 +59,19 @@ func (e *MavenEnricher) Enrich(component *cyclonedx.Component) error {
 		return err
 	}
 
-	licenses := make([]string, 0)
-	for _, item := range *parsedPom.Licenses {
-		licenses = append(licenses, *item.Name)
-	}
+	if parsedPom != nil {
 
-	utils.SetLicense(component, licenses)
+		if parsedPom.Licenses != nil {
+			licenses := make([]string, 0)
+
+			for _, item := range *parsedPom.Licenses {
+				licenses = append(licenses, *item.Name)
+			}
+
+			utils.SetLicense(component, licenses)
+		}
+
+	}
 
 	//TODO: USE MORE DATA
 

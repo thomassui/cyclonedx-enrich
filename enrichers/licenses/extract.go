@@ -9,7 +9,6 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -27,15 +26,6 @@ func (e *ExtractEnricher) Skip(component *cyclonedx.Component) bool {
 		//SKIP
 		return true
 	}
-
-	if component.Properties != nil && len(*component.Properties) > 0 {
-		for _, prop := range *component.Properties {
-			if strings.HasPrefix(prop.Name, "aquasecurity") {
-				return true
-			}
-		}
-	}
-
 	return false
 }
 

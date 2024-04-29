@@ -6,9 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"net/http"
 	"strings"
-	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -16,7 +14,6 @@ import (
 var log = slog.Default()
 
 var endpoint = "https://pypi.org/pypi"
-var client = &http.Client{Timeout: 10 * time.Second}
 
 type PyPiEnricher struct {
 	models.Enricher
@@ -40,7 +37,7 @@ func (e *PyPiEnricher) Skip(component *cyclonedx.Component) bool {
 func (e *PyPiEnricher) Enrich(component *cyclonedx.Component) error {
 	url := fmt.Sprintf("%s/%s/%s/json", endpoint, component.Name, component.Version)
 
-	r, err := client.Get(url)
+	r, err := utils.Request(url)
 	if err != nil {
 		log.Error("error with request",
 			slog.String("package", component.PackageURL),

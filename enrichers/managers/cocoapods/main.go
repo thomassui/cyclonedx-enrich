@@ -8,9 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"net/http"
 	"strings"
-	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -18,7 +16,6 @@ import (
 var log = slog.Default()
 
 var endpoint = "https://cdn.cocoapods.org"
-var client = &http.Client{Timeout: 10 * time.Second}
 var pathLenght = 3 //TODO: GET THIS FROM https://cdn.cocoapods.org/CocoaPods-version.yml"
 
 type CocoapodsEnricher struct {
@@ -43,7 +40,7 @@ func (e *CocoapodsEnricher) Skip(component *cyclonedx.Component) bool {
 func (e *CocoapodsEnricher) Enrich(component *cyclonedx.Component) error {
 	url := fmt.Sprintf("%s/Specs/%s/%s/%s/%s.podspec.json", endpoint, path(component.Name), component.Name, component.Version, component.Name)
 
-	r, err := client.Get(url)
+	r, err := utils.Request(url)
 	if err != nil {
 		log.Error("error with request",
 			slog.String("package", component.PackageURL),
@@ -57,7 +54,6 @@ func (e *CocoapodsEnricher) Enrich(component *cyclonedx.Component) error {
 	err = json.NewDecoder(r.Body).Decode(item)
 
 	if err != nil {
-		fmt.Println(url)
 		log.Error("cannot unmarshal",
 			slog.String("package", component.PackageURL),
 			slog.String("url", url),

@@ -6,9 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"net/http"
 	"strings"
-	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -16,7 +14,6 @@ import (
 var log = slog.Default()
 
 var endpoint = "https://registry.npmjs.org"
-var client = &http.Client{Timeout: 10 * time.Second}
 
 type NPMEnricher struct {
 	models.Enricher
@@ -46,7 +43,7 @@ func (e *NPMEnricher) Enrich(component *cyclonedx.Component) error {
 		url = fmt.Sprintf("%s/%s/%s", endpoint, component.Name, component.Version)
 	}
 
-	r, err := client.Get(url)
+	r, err := utils.Request(url)
 	if err != nil {
 		log.Error("error with request",
 			slog.String("package", component.PackageURL),

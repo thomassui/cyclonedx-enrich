@@ -1,11 +1,17 @@
 package utils
 
 import (
+	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/gregjones/httpcache"
 )
+
+var tp = httpcache.NewMemoryCacheTransport()
+var client = &http.Client{Timeout: 10 * time.Second, Transport: tp}
 
 func GetRealPurl(purl string) string {
 	u, _ := url.Parse(purl)
@@ -31,4 +37,11 @@ func SetLicense(component *cyclonedx.Component, licenseNames []string) {
 	}
 
 	component.Licenses = (*cyclonedx.Licenses)(&licenses)
+}
+
+func Request(url string) (resp *http.Response, err error) {
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set("Cache-Control", "stale-if-error")
+	return tp.RoundTrip(req)
 }
