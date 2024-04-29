@@ -41,7 +41,7 @@ func (e *RegexpEnricher) Category() models.EnricherCategory {
 
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
 	// TODO: VALIDATE IF IT HAS EXPRESSION OR LICENSE OBJECT
-	if component.Licenses != nil {
+	if len(component.PackageURL) == 0 || component.Licenses != nil {
 		//SKIP
 		return true
 	}

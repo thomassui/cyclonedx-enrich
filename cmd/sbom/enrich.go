@@ -45,6 +45,8 @@ func Enrich(data io.Reader) (*cyclonedx.BOM, error) {
 	decoder := cyclonedx.NewBOMDecoder(data, cyclonedx.BOMFileFormatJSON)
 	err := decoder.Decode(request)
 
+	processSBOM(request)
+
 	return request, err
 }
 
