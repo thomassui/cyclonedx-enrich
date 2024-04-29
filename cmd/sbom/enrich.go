@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"os"
 	"reflect"
+	"strconv"
 
 	"cyclonedx-enrich/enrichers/hashes"
 	"cyclonedx-enrich/enrichers/licenses"
@@ -53,12 +54,13 @@ func Enrich(data io.Reader) (*cyclonedx.BOM, error) {
 var items []models.Enricher = loadEnrichers()
 
 func loadEnrichers() []models.Enricher {
-	return []models.Enricher{
+	value, _ := strconv.ParseBool(os.Getenv("ALLOW_EXTRACT"))
+
+	items := []models.Enricher{
 		//licenses
 		&licenses.DatabaseEnricher{},
 		&licenses.RegexpEnricher{},
 		&licenses.ManagerEnricher{},
-		&licenses.ExtractEnricher{},
 
 		//hashes
 		&hashes.DatabaseEnricher{},
@@ -72,6 +74,12 @@ func loadEnrichers() []models.Enricher {
 		&references.DatabaseEnricher{},
 		&references.RegexpEnricher{},
 	}
+
+	if value {
+		items = append(items, &licenses.ExtractEnricher{})
+	}
+
+	return items
 }
 
 func processSBOM(bom *cyclonedx.BOM) {
