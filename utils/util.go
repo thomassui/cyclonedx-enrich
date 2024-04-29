@@ -10,8 +10,17 @@ import (
 func GetRealPurl(purl string) string {
 	u, _ := url.Parse(purl)
 
-	return strings.TrimSuffix(purl, "?"+u.RawQuery)
+	return Decoded(strings.TrimSuffix(purl, "?"+u.RawQuery))
+}
 
+func Decoded(value string) string {
+	decodedValue, err := url.QueryUnescape(value)
+
+	if err != nil {
+		return value
+	}
+
+	return decodedValue
 }
 
 func SetLicense(component *cyclonedx.Component, licenseNames []string) {

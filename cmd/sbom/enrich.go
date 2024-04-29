@@ -2,7 +2,6 @@ package sbom
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"log/slog"
 	"os"
@@ -11,6 +10,8 @@ import (
 
 	"cyclonedx-enrich/enrichers/hashes"
 	"cyclonedx-enrich/enrichers/licenses"
+	"cyclonedx-enrich/enrichers/managers/cocoapods"
+	"cyclonedx-enrich/enrichers/managers/npm"
 	"cyclonedx-enrich/enrichers/properties"
 	"cyclonedx-enrich/enrichers/references"
 	"cyclonedx-enrich/models"
@@ -60,7 +61,6 @@ func loadEnrichers() []models.Enricher {
 		//licenses
 		&licenses.DatabaseEnricher{},
 		&licenses.RegexpEnricher{},
-		&licenses.ManagerEnricher{},
 
 		//hashes
 		&hashes.DatabaseEnricher{},
@@ -73,6 +73,10 @@ func loadEnrichers() []models.Enricher {
 		//references
 		&references.DatabaseEnricher{},
 		&references.RegexpEnricher{},
+
+		//managers
+		&npm.NPMEnricher{},
+		&cocoapods.CocoapodsEnricher{},
 	}
 
 	if value {
