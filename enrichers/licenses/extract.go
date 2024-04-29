@@ -40,7 +40,6 @@ func (e *ExtractEnricher) Skip(component *cyclonedx.Component) bool {
 }
 
 func (e *ExtractEnricher) Enrich(component *cyclonedx.Component) error {
-
 	purl := utils.GetRealPurl(component.PackageURL)
 	path := fmt.Sprintf("output/%s.json", purl)
 

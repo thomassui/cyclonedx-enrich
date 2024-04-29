@@ -7,6 +7,7 @@ import (
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type DatabaseCMD struct {
@@ -37,7 +38,9 @@ func connect() (*gorm.DB, error) {
 		}
 	}
 
-	return gorm.Open(sqlite.Open(filename), &gorm.Config{})
+	return gorm.Open(sqlite.Open(filename), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 }
 
 func create(filename string) error {

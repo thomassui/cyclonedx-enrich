@@ -12,6 +12,7 @@ import (
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type DatabaseEnricher struct {
@@ -22,7 +23,9 @@ type DatabaseEnricher struct {
 
 func connect() (*gorm.DB, error) {
 	filename := os.Getenv("DATABASE_FILE")
-	return gorm.Open(sqlite.Open(filename), &gorm.Config{})
+	return gorm.Open(sqlite.Open(filename), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 }
 
 func (e *DatabaseEnricher) Category() models.EnricherCategory {

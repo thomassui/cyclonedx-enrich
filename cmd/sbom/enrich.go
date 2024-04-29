@@ -83,7 +83,7 @@ func loadEnrichers() []models.Enricher {
 }
 
 func processSBOM(bom *cyclonedx.BOM) {
-	if bom.Metadata.Component != nil {
+	if bom.Metadata != nil && bom.Metadata.Component != nil {
 		component := bom.Metadata.Component
 		parseComponent(component)
 

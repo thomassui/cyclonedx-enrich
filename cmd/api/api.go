@@ -89,7 +89,7 @@ func Setup() *gin.Engine {
 
 		handlers = append(handlers, AuthorizeRequest(route.IsPublic))
 
-		if route.Expires > 0 {
+		if p.storeCache != nil && route.Expires > 0 {
 			handlers = append(handlers, cache.CachePageAtomic(storeCache, route.Expires, route.Handler))
 		} else {
 			handlers = append(handlers, route.Handler)
