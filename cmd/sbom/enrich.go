@@ -14,6 +14,7 @@ import (
 	"cyclonedx-enrich/enrichers/managers/cocoapods"
 	"cyclonedx-enrich/enrichers/managers/maven"
 	"cyclonedx-enrich/enrichers/managers/npm"
+	"cyclonedx-enrich/enrichers/managers/pypi"
 	"cyclonedx-enrich/enrichers/properties"
 	"cyclonedx-enrich/enrichers/references"
 	"cyclonedx-enrich/models"
@@ -80,6 +81,7 @@ func loadEnrichers() []models.Enricher {
 		&maven.MavenEnricher{},
 		&npm.NPMEnricher{},
 		&cocoapods.CocoapodsEnricher{},
+		&pypi.PyPiEnricher{},
 	}
 
 	if value {
