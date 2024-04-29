@@ -2,6 +2,7 @@ package sbom
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"log/slog"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"cyclonedx-enrich/enrichers/hashes"
 	"cyclonedx-enrich/enrichers/licenses"
 	"cyclonedx-enrich/enrichers/managers/cocoapods"
+	"cyclonedx-enrich/enrichers/managers/maven"
 	"cyclonedx-enrich/enrichers/managers/npm"
 	"cyclonedx-enrich/enrichers/properties"
 	"cyclonedx-enrich/enrichers/references"
@@ -52,7 +54,7 @@ func Enrich(data io.Reader) (*cyclonedx.BOM, error) {
 	return request, err
 }
 
-var items []models.Enricher = loadEnrichers()
+var enrichers []models.Enricher = loadEnrichers()
 
 func loadEnrichers() []models.Enricher {
 	value, _ := strconv.ParseBool(os.Getenv("ALLOW_EXTRACT"))
@@ -75,6 +77,7 @@ func loadEnrichers() []models.Enricher {
 		&references.RegexpEnricher{},
 
 		//managers
+		&maven.MavenEnricher{},
 		&npm.NPMEnricher{},
 		&cocoapods.CocoapodsEnricher{},
 	}
@@ -110,7 +113,7 @@ func parseComponent(component *cyclonedx.Component) {
 	log.Debug("parsing component",
 		slog.String("component", component.PackageURL))
 
-	for _, enricher := range items {
+	for _, enricher := range enrichers {
 		if !enricher.Skip(component) {
 			err := enricher.Enrich(component)
 			if err != nil {

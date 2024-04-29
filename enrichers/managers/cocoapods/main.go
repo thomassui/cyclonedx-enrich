@@ -77,7 +77,6 @@ func (e *CocoapodsEnricher) Enrich(component *cyclonedx.Component) error {
 func path(name string) string {
 	hash := md5.Sum([]byte(name))
 	hashString := hex.EncodeToString(hash[:])
-	fmt.Println(hashString)
 	value := make([]string, pathLenght)
 
 	for idx := 0; idx < pathLenght; idx++ {
