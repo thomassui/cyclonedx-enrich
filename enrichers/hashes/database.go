@@ -13,10 +13,6 @@ type DatabaseEnricher struct {
 	models.Enricher
 }
 
-func (e *DatabaseEnricher) Category() models.EnricherCategory {
-	return "hashes" //TODO: REFLECT package name
-}
-
 func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
 	if utils.ConnectDatabase() == nil {
 		return true

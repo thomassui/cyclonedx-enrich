@@ -22,10 +22,6 @@ type CocoapodsEnricher struct {
 	models.Enricher
 }
 
-func (e *CocoapodsEnricher) Category() models.EnricherCategory {
-	return "managers"
-}
-
 func (e *CocoapodsEnricher) Skip(component *cyclonedx.Component) bool {
 	if !strings.HasPrefix(utils.GetRealPurl(component.PackageURL), "pkg:cocoapods/") {
 		return true

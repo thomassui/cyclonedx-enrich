@@ -2,7 +2,6 @@ package licenses
 
 import (
 	"bytes"
-	"cyclonedx-enrich/models"
 	"cyclonedx-enrich/utils"
 	"errors"
 	"fmt"
@@ -14,10 +13,6 @@ import (
 )
 
 type ExtractEnricher struct {
-}
-
-func (e *ExtractEnricher) Category() models.EnricherCategory {
-	return "license"
 }
 
 func (e *ExtractEnricher) Skip(component *cyclonedx.Component) bool {

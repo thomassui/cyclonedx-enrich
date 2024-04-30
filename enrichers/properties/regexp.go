@@ -13,10 +13,6 @@ type RegexpEnricher struct {
 	models.Enricher
 }
 
-func (e *RegexpEnricher) Category() models.EnricherCategory {
-	return "properties"
-}
-
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
 	if len(utils.LoadRules()) == 0 {
 		return true
