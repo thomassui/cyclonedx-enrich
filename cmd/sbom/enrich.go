@@ -106,8 +106,6 @@ func load(data io.Reader) (*cyclonedx.BOM, error) {
 var enrichers []models.Enricher = loadEnrichers()
 
 func loadEnrichers() []models.Enricher {
-	value, _ := strconv.ParseBool(os.Getenv("ALLOW_EXTRACT"))
-
 	items := []models.Enricher{
 		//licenses
 		&licenses.RegexpEnricher{},
@@ -132,7 +130,7 @@ func loadEnrichers() []models.Enricher {
 		&pypi.PyPiEnricher{},
 	}
 
-	if value {
+	if value, _ := strconv.ParseBool(os.Getenv("ALLOW_EXTRACT")); value {
 		items = append(items, &licenses.ExtractEnricher{})
 	}
 

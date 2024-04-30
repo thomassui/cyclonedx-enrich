@@ -56,3 +56,11 @@ func ReadFile(filename string, fn func(*os.File) error) error {
 
 	return fn(file)
 }
+
+func Getenv(key string, defaultValue string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		value = defaultValue
+	}
+	return value
+}

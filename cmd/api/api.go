@@ -5,8 +5,9 @@ import (
 	"encoding/base64"
 	"log/slog"
 	"net/http"
-	"os"
 	"time"
+
+	"cyclonedx-enrich/utils"
 
 	"github.com/gin-contrib/cache"
 	"github.com/gin-contrib/cache/persistence"
@@ -23,7 +24,7 @@ type Route struct {
 	Handler  func(c *gin.Context)
 }
 
-var token = os.Getenv("APP_TOKEN")
+var token = utils.Getenv("APP_TOKEN", "")
 var log = slog.Default()
 var storeCache persistence.CacheStore
 

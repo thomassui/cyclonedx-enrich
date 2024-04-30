@@ -42,9 +42,10 @@ func importComponent(data []byte) error {
 		References: getReferences(bom.Metadata.Component),
 	}
 
-	db, err := connect()
-	if err != nil {
-		return err
+	db := utils.ConnectDatabase()
+
+	if db == nil {
+		return fmt.Errorf("Unable to connect to database")
 	}
 
 	tx := db.Save(item)

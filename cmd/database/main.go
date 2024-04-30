@@ -2,12 +2,7 @@ package database
 
 import (
 	"cyclonedx-enrich/models"
-	"errors"
-	"os"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	"cyclonedx-enrich/utils"
 )
 
 type DatabaseCMD struct {
@@ -24,31 +19,7 @@ func (c DatabaseCMD) Commands() []models.Command {
 			return download()
 		}},
 		{Flag: "database-register", Description: "Registers database entities", Handler: func(value string) error {
-			return register()
+			return utils.Register()
 		}},
 	}
-}
-
-func connect() (*gorm.DB, error) {
-	filename := os.Getenv("DATABASE_FILE")
-
-	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
-		if err := create(filename); err != nil {
-			return nil, err
-		}
-	}
-
-	return gorm.Open(sqlite.Open(filename), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Silent),
-	})
-}
-
-func create(filename string) error {
-	_, err := os.Create(filename)
-
-	if err != nil {
-		return err
-	}
-
-	return register()
 }

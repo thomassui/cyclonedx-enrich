@@ -2,16 +2,17 @@ package database
 
 import (
 	"context"
-	"os"
 	"time"
+
+	"cyclonedx-enrich/utils"
 
 	getter "github.com/hashicorp/go-getter/v2"
 )
 
 func download() error {
 
-	filename := os.Getenv("DATABASE_FILE")
-	rawURL := os.Getenv("DOWNLOAD_DATABASE_URL")
+	filename := utils.Getenv("DATABASE_FILE", "database.db")
+	rawURL := utils.Getenv("DOWNLOAD_DATABASE_URL", "https://raw.githubusercontent.com/fnxpt/cyclonedx-enrich-poc/main/database.db")
 	defaultProgressBar := &ProgressBar{}
 
 	ctx := context.Background()

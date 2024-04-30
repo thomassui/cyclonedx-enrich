@@ -4,35 +4,13 @@ import (
 	"cyclonedx-enrich/models"
 	"cyclonedx-enrich/utils"
 	"fmt"
-	"log/slog"
-	"os"
 	"regexp"
 
 	"github.com/CycloneDX/cyclonedx-go"
-
-	"gopkg.in/yaml.v3"
 )
 
 type RegexpEnricher struct {
 	models.Enricher
-	isInitialized bool
-	rules         []models.RuleEntry
-}
-
-func loadRules() ([]models.RuleEntry, error) {
-	filename := os.Getenv("REGEXP_FILE")
-	data, err := os.ReadFile(filename)
-
-	rules := []models.RuleEntry{}
-
-	if err != nil {
-		return rules, err
-	}
-
-	err = yaml.Unmarshal(data, &rules)
-
-	return rules, err
-
 }
 
 func (e *RegexpEnricher) Category() models.EnricherCategory {
@@ -40,6 +18,10 @@ func (e *RegexpEnricher) Category() models.EnricherCategory {
 }
 
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
+	if len(utils.LoadRules()) == 0 {
+		return true
+	}
+
 	// TODO: VALIDATE IF IT HAS EXPRESSION OR LICENSE OBJECT
 	if len(component.PackageURL) == 0 || component.Licenses != nil {
 		//SKIP
@@ -49,19 +31,9 @@ func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
 }
 
 func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {
-	if !e.isInitialized {
-		rules, err := loadRules()
+	rules := utils.LoadRules()
 
-		if err != nil {
-			log.Warn("unable to load rules",
-				slog.String("error", err.Error()))
-		}
-
-		e.rules = rules
-		e.isInitialized = true
-	}
-
-	for _, item := range e.rules {
+	for _, item := range rules {
 		r, err := regexp.Compile(item.Rule)
 
 		if err != nil {
