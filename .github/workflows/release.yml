@@ -129,3 +129,20 @@ jobs:
         GHR_COMPRESS: gz
         GHR_PATH: dist/cyclonedx-enrich-${{ matrix.goos }}-${{ matrix.goarch }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          docker run -it --rm \
+          -v "${PWD}:/usr/src/cyclonedx-enrich" \
+          -v "$(pwd):/out" \
+          cyclonedx/cyclonedx-gomod:v1 mod -json -output /out/cyclonedx-enrich-${{ github.ref_name }}.sbom.json /usr/src/cyclonedx-enrich
+      - name: Add sbom to release
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_PATH: dist/cyclonedx-enrich-${{ github.ref_name }}.sbom.json
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+

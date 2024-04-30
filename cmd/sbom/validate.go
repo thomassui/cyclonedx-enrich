@@ -3,6 +3,7 @@ package sbom
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 
@@ -21,6 +22,8 @@ func validateFiles(expression string) error {
 
 	if len(paths) > 0 {
 		for _, file := range paths {
+			log.Info("Validating file",
+				slog.String("file", file))
 			if err := validateFile(file); err != nil {
 				errs = append(errs, err)
 			}
