@@ -10,7 +10,7 @@ var log = slog.Default()
 
 func hasKey(properties []cyclonedx.Property, key string) bool {
 	for _, property := range properties {
-		if property.Value == key {
+		if property.Name == key {
 			return true
 		}
 	}
