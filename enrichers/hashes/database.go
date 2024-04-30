@@ -40,7 +40,7 @@ func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {
 		db, err := connect()
 
 		if err != nil {
-			log.Error("unable to load rules",
+			log.Warn("unable to connect to database",
 				slog.String("error", err.Error()))
 		}
 

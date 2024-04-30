@@ -53,7 +53,7 @@ func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {
 		rules, err := loadRules()
 
 		if err != nil {
-			log.Error("unable to load rules",
+			log.Warn("unable to load rules",
 				slog.String("error", err.Error()))
 		}
 
