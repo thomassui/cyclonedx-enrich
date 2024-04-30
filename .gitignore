@@ -52,4 +52,5 @@ cyclonedx-enrich
 .env
 regexp.yaml
 database.db
+output/
 
