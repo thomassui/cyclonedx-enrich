@@ -38,7 +38,10 @@ func enrichFiles(expression string) error {
 
 	if len(paths) > 0 {
 		for _, file := range paths {
+			log.Info("Enriching file",
+				slog.String("file", file))
 			if err := enrichFile(file); err != nil {
+				log.Info(err.Error())
 				errs = append(errs, err)
 			}
 		}
@@ -69,8 +72,11 @@ func enrichFile(filename string) error {
 			return err
 		}
 
-		//TODO: OUTPUT TO FILE
-		fmt.Println(string(buf.Bytes()))
+		err = os.WriteFile(filename, buf.Bytes(), 0644)
+
+		if err != nil {
+			return err
+		}
 
 		return nil
 	})
@@ -104,20 +110,20 @@ func loadEnrichers() []models.Enricher {
 
 	items := []models.Enricher{
 		//licenses
-		&licenses.DatabaseEnricher{},
 		&licenses.RegexpEnricher{},
+		&licenses.DatabaseEnricher{},
 
 		//hashes
-		&hashes.DatabaseEnricher{},
 		&hashes.RegexpEnricher{},
+		&hashes.DatabaseEnricher{},
 
 		//properties
-		&properties.DatabaseEnricher{},
 		&properties.RegexpEnricher{},
+		&properties.DatabaseEnricher{},
 
 		//references
-		&references.DatabaseEnricher{},
 		&references.RegexpEnricher{},
+		&references.DatabaseEnricher{},
 
 		//managers
 		&maven.MavenEnricher{},
