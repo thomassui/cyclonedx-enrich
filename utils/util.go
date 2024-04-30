@@ -3,6 +3,7 @@ package utils
 import (
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -44,4 +45,14 @@ func Request(url string) (resp *http.Response, err error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Cache-Control", "stale-if-error")
 	return tp.RoundTrip(req)
+}
+
+func ReadFile(filename string, fn func(*os.File) error) error {
+	file, err := os.Open(filename)
+
+	if err != nil {
+		return err
+	}
+
+	return fn(file)
 }

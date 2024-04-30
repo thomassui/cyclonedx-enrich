@@ -2,10 +2,12 @@ package sbom
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strconv"
 
@@ -19,38 +21,78 @@ import (
 	"cyclonedx-enrich/enrichers/references"
 	"cyclonedx-enrich/models"
 
+	"cyclonedx-enrich/utils"
+
 	"github.com/CycloneDX/cyclonedx-go"
 )
 
-func enrichFile(filename string) error {
-	file, err := os.Open(filename)
+func enrichFiles(expression string) error {
+
+	paths, err := filepath.Glob(expression)
 
 	if err != nil {
 		return err
 	}
 
-	bom, err := Enrich(file)
+	errs := make([]error, 0)
 
-	if err != nil {
-		return err
+	if len(paths) > 0 {
+		for _, file := range paths {
+			if err := enrichFile(file); err != nil {
+				errs = append(errs, err)
+			}
+		}
+	} else {
+		return fmt.Errorf("file not found %s", expression)
 	}
 
-	buf := new(bytes.Buffer)
-	encoder := cyclonedx.NewBOMEncoder(buf, cyclonedx.BOMFileFormatJSON)
-	encoder.SetPretty(true)
-	encoder.Encode(bom)
-
-	fmt.Println(string(buf.Bytes()))
+	if len(errs) > 0 {
+		return errors.Join(errs...)
+	}
 	return nil
 }
 
+func enrichFile(filename string) error {
+	return utils.ReadFile(filename, func(file *os.File) error {
+		bom, err := Enrich(file)
+
+		if err != nil {
+			return err
+		}
+
+		buf := new(bytes.Buffer)
+		encoder := cyclonedx.NewBOMEncoder(buf, cyclonedx.BOMFileFormatJSON)
+		encoder.SetPretty(true)
+		err = encoder.Encode(bom)
+
+		if err != nil {
+			return err
+		}
+
+		//TODO: OUTPUT TO FILE
+		fmt.Println(string(buf.Bytes()))
+
+		return nil
+	})
+}
+
 func Enrich(data io.Reader) (*cyclonedx.BOM, error) {
+	request, err := load(data)
+
+	if err != nil {
+		return nil, err
+	}
+
+	processSBOM(request)
+
+	return request, err
+}
+
+func load(data io.Reader) (*cyclonedx.BOM, error) {
 	var request = &cyclonedx.BOM{}
 
 	decoder := cyclonedx.NewBOMDecoder(data, cyclonedx.BOMFileFormatJSON)
 	err := decoder.Decode(request)
-
-	processSBOM(request)
 
 	return request, err
 }
