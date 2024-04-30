@@ -134,15 +134,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          docker run -it --rm \
+      - name: Generate sbom
+        run: |
+          touch cyclonedx-enrich-${{ github.ref_name }}.sbom.json
+          chmod 777 cyclonedx-enrich-${{ github.ref_name }}.sbom.json
+          docker run --rm \
           -v "${PWD}:/usr/src/cyclonedx-enrich" \
-          -v "$(pwd):/out" \
+          -v "${PWD}:/out" \
           cyclonedx/cyclonedx-gomod:v1 mod -json -output /out/cyclonedx-enrich-${{ github.ref_name }}.sbom.json /usr/src/cyclonedx-enrich
       - name: Add sbom to release
         uses: fnkr/github-action-ghr@v1
         env:
-          GHR_PATH: dist/cyclonedx-enrich-${{ github.ref_name }}.sbom.json
+          GHR_PATH: cyclonedx-enrich-${{ github.ref_name }}.sbom.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
