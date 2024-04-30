@@ -54,28 +54,23 @@ var ComponentMaven = &cyclonedx.Component{
 	PackageURL:  "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
 }
 
-// TODO: CHANGE COMPONENT
 var ComponentCocoapods = &cyclonedx.Component{
 	Type:        "library",
-	BOMRef:      "pkg:cocoapods/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
-	Group:       "org.openapitools",
-	Name:        "jackson-databind-nullable",
-	Version:     "0.2.4",
-	Description: "JsonNullable wrapper class and Jackson module to support fields with meaningful null values.",
-	Scope:       "required",
-	PackageURL:  "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
+	BOMRef:      "pkg:cocoapods/AppAuth@1.6.2#Core",
+	Name:        "AppAuth/Core",
+	Version:     "1.6.2",
+	Description: "AppAuth for iOS and macOS is a client SDK for communicating with [OAuth 2.0]\n(https://tools.ietf.org/html/rfc6749) and [OpenID Connect]\n(http://openid.net/specs/openid-connect-core-1_0.html) providers. It strives to\ndirectly map the requests and responses of those specifications, while following\nthe idiomatic style of the implementation language. In addition to mapping the\nraw protocol flows, convenience methods are available to assist with common\ntasks like performing an action with fresh tokens.\n\nIt follows the OAuth 2.0 for Native Apps best current practice\n([RFC 8252](https://tools.ietf.org/html/rfc8252)).",
+	PackageURL:  "pkg:cocoapods/AppAuth@1.6.2#Core",
 }
 
 // TODO: CHANGE COMPONENT
 var ComponentNpm = &cyclonedx.Component{
-	Type:        "library",
-	BOMRef:      "pkg:npm/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
-	Group:       "org.openapitools",
-	Name:        "jackson-databind-nullable",
-	Version:     "0.2.4",
-	Description: "JsonNullable wrapper class and Jackson module to support fields with meaningful null values.",
-	Scope:       "required",
-	PackageURL:  "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
+	Type:       "library",
+	BOMRef:     "@angular/cdk@16.2.14|parse5@7.1.2",
+	Name:       "parse5",
+	Version:    "7.1.2",
+	Scope:      "optional",
+	PackageURL: "pkg:npm/parse5@7.1.2",
 }
 
 // TODO: CHANGE COMPONENT

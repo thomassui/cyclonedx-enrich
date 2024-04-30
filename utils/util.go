@@ -17,7 +17,7 @@ var client = &http.Client{Timeout: 10 * time.Second, Transport: tp}
 func GetRealPurl(purl string) string {
 	u, _ := url.Parse(purl)
 
-	return Decoded(strings.TrimSuffix(purl, "?"+u.RawQuery))
+	return Decoded(strings.TrimSuffix(strings.TrimSuffix(purl, "#"+u.Fragment), "?"+u.RawQuery))
 }
 
 func Decoded(value string) string {
