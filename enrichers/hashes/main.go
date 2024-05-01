@@ -10,7 +10,7 @@ var log = slog.Default()
 
 func hasKey(hashes []cyclonedx.Hash, key string) bool {
 	for _, hash := range hashes {
-		if hash.Value == key {
+		if string(hash.Algorithm) == key {
 			return true
 		}
 	}

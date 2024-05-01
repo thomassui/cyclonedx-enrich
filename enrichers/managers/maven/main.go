@@ -19,10 +19,6 @@ type MavenEnricher struct {
 	models.Enricher
 }
 
-func (e *MavenEnricher) Category() models.EnricherCategory {
-	return "managers"
-}
-
 func (e *MavenEnricher) Skip(component *cyclonedx.Component) bool {
 	if !strings.HasPrefix(utils.GetRealPurl(component.PackageURL), "pkg:maven/") {
 		return true

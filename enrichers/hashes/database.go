@@ -13,19 +13,19 @@ type DatabaseEnricher struct {
 	models.Enricher
 }
 
-func (e *DatabaseEnricher) Category() models.EnricherCategory {
-	return "hashes" //TODO: REFLECT package name
-}
-
 func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
 	if utils.ConnectDatabase() == nil {
 		return true
 	}
-	return component.Hashes != nil
+	return len(component.PackageURL) == 0 || component.Hashes != nil
 }
 
 func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {
 	db := utils.ConnectDatabase()
+
+	if db == nil {
+		return fmt.Errorf("Unable to access database")
+	}
 
 	var item *models.Component
 	db.Where("purl = ?", utils.GetRealPurl(component.PackageURL)).Preload("Hashes").First(&item)

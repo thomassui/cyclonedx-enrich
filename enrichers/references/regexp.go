@@ -13,12 +13,8 @@ type RegexpEnricher struct {
 	models.Enricher
 }
 
-func (e *RegexpEnricher) Category() models.EnricherCategory {
-	return "references"
-}
-
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
-	return true
+	return len(utils.LoadRules()) == 0
 }
 
 func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {

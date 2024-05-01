@@ -19,10 +19,6 @@ type PyPiEnricher struct {
 	models.Enricher
 }
 
-func (e *PyPiEnricher) Category() models.EnricherCategory {
-	return "managers"
-}
-
 func (e *PyPiEnricher) Skip(component *cyclonedx.Component) bool {
 	if !strings.HasPrefix(utils.GetRealPurl(component.PackageURL), "pkg:pypi/") {
 		return true

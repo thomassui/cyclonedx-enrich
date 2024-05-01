@@ -13,10 +13,6 @@ type RegexpEnricher struct {
 	models.Enricher
 }
 
-func (e *RegexpEnricher) Category() models.EnricherCategory {
-	return "hashes"
-}
-
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
 	return component.Hashes != nil
 }

@@ -19,10 +19,6 @@ type NPMEnricher struct {
 	models.Enricher
 }
 
-func (e *NPMEnricher) Category() models.EnricherCategory {
-	return "managers"
-}
-
 func (e *NPMEnricher) Skip(component *cyclonedx.Component) bool {
 	if !strings.HasPrefix(utils.GetRealPurl(component.PackageURL), "pkg:npm/") {
 		return true

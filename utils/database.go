@@ -34,24 +34,12 @@ func connect() (*gorm.DB, error) {
 	filename := Getenv("DATABASE_FILE", "database.db")
 
 	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
-		if err := create(filename); err != nil {
-			return nil, err
-		}
+		return nil, err
 	}
 
 	return gorm.Open(sqlite.Open(filename), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
-}
-
-func create(filename string) error {
-	_, err := os.Create(filename)
-
-	if err != nil {
-		return err
-	}
-
-	return Register()
 }
 
 func Register() error {
