@@ -24,8 +24,7 @@ Database and Data are stored in this [repo](https://github.com/fnxpt/cyclonedx-e
 
 ## Enrichers
 
-An enricher is a small struct that provides 3 methods.
-- `Category` - The name of the category of the enricher (not used yet)
+An enricher is a small struct that provides 2 methods.
 - `Skip` - A method that defines if the enricher should be executed
 - `Enrich` - A method which will apply the enrichments
 
