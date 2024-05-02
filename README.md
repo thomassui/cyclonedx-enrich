@@ -30,14 +30,14 @@ An enricher is a small struct that provides 2 methods.
 
 |Type|Enricher|Description|
 |---|---|---|
-|License|RegexpEnricher|Checks if the components don't have licenses and tryes to enrich them based on a regexp file provided|
-|License|DatabaseEnricher|Checks if the components don't have licenses and tryes to enrich them based on a database|
-|Hash|RegexpEnricher|Checks if the components don't have hashes and tryes to enrich them based on a regexp file provided|
-|Hash|DatabaseEnricher|Checks if the components don't have hashes and tryes to enrich them based on a database|
-|Property|RegexpEnricher|Checks if the components don't have properties and tryes to enrich them based on a regexp file provided|
-|Property|DatabaseEnricher|Checks if the components don't have properties and tryes to enrich them based on a database|
-|Reference|RegexpEnricher|Checks if the components don't have references and tryes to enrich them based on a regexp file provided|
-|Reference|DatabaseEnricher|Checks if the components don't have references and tryes to enrich them based on a database|
+|License|RegexpEnricher|Checks if the components don't have licenses and tries to enrich them based on a regexp file provided|
+|License|DatabaseEnricher|Checks if the components don't have licenses and tries to enrich them based on a database|
+|Hash|RegexpEnricher|Checks if the components don't have hashes and tries to enrich them based on a regexp file provided|
+|Hash|DatabaseEnricher|Checks if the components don't have hashes and tries to enrich them based on a database|
+|Property|RegexpEnricher|Checks if the components don't have properties and tries to enrich them based on a regexp file provided|
+|Property|DatabaseEnricher|Checks if the components don't have properties and tries to enrich them based on a database|
+|Reference|RegexpEnricher|Checks if the components don't have references and tries to enrich them based on a regexp file provided|
+|Reference|DatabaseEnricher|Checks if the components don't have references and tries to enrich them based on a database|
 |Manager|CocoapodsEnricher|Enrich components based on the information available in the [cocoapods](https://cocoapods.org)|
 |Manager|MavenEnricher|Enrich components based on the information available in the [maven](https://central.sonatype.com)|
 |Manager|NPMEnricher|Enrich components based on the information available in the [npm](https://npmjs.com)|
