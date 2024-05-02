@@ -38,10 +38,10 @@ An enricher is a small struct that provides 2 methods.
 |Property|DatabaseEnricher|Checks if the components don't have properties and tryes to enrich them based on a database|
 |Reference|RegexpEnricher|Checks if the components don't have references and tryes to enrich them based on a regexp file provided|
 |Reference|DatabaseEnricher|Checks if the components don't have references and tryes to enrich them based on a database|
-|Manager|CocoapodsEnricher|Tries to enrich components based on the information available in the cocoapods(https://cocoapods.org)|
+|Manager|CocoapodsEnricher|Tries to enrich components based on the information available in the [cocoapods](https://cocoapods.org)|
 |Manager|MavenEnricher|Tries to enrich components based on the information available in the [maven](https://central.sonatype.com)|
-|Manager|NPMEnricher|Tries to enrich components based on the information available in the npm(https://npmjs.com)|
-|Manager|PyPiEnricher|Tries to enrich components based on the information available in the pypi(https://pypi.org)|
+|Manager|NPMEnricher|Tries to enrich components based on the information available in the [npm](https://npmjs.com)|
+|Manager|PyPiEnricher|Tries to enrich components based on the information available in the [pypi](https://pypi.org)|
 
 ## Install
 
