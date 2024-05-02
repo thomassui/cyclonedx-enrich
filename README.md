@@ -28,53 +28,20 @@ An enricher is a small struct that provides 2 methods.
 - `Skip` - A method that defines if the enricher should be executed
 - `Enrich` - A method which will apply the enrichments
 
-### LicenseRegexpEnricher
-
-Checks if the components don't have licenses and tryes to enrich them based on a regexp file provided
-
-### LicenseDatabaseEnricher
-
-Checks if the components don't have licenses and tryes to enrich them based on a database
-
-### HashRegexpEnricher
-
-Checks if the components don't have hashes and tryes to enrich them based on a regexp file provided
-
-### HashDatabaseEnricher
-
-Checks if the components don't have hashes and tryes to enrich them based on a database
-
-### PropertyRegexpEnricher
-
-Checks if the components don't have properties and tryes to enrich them based on a regexp file provided
-
-### PropertyDatabaseEnricher
-
-Checks if the components don't have properties and tryes to enrich them based on a database
-
-### ReferenceRegexpEnricher
-
-Checks if the components don't have references and tryes to enrich them based on a regexp file provided
-
-### ReferenceDatabaseEnricher
-
-Checks if the components don't have references and tryes to enrich them based on a database
-
-### MavenEnricher
-
-Tries to enrich components based on the information available in the [maven](https://central.sonatype.com)
-
-### NPMEnricher
-
-Tries to enrich components based on the information available in the npm(https://npmjs.com)
-
-### CocoapodsEnricher
-
-Tries to enrich components based on the information available in the cocoapods(https://cocoapods.org)
-
-### PyPiEnricher
-
-Tries to enrich components based on the information available in the pypi(https://pypi.org)
+|Type|Enricher|Description|
+|---|---|---|
+|License|RegexpEnricher|Checks if the components don't have licenses and tryes to enrich them based on a regexp file provided|
+|License|DatabaseEnricher|Checks if the components don't have licenses and tryes to enrich them based on a database|
+|Hash|RegexpEnricher|Checks if the components don't have hashes and tryes to enrich them based on a regexp file provided|
+|Hash|DatabaseEnricher|Checks if the components don't have hashes and tryes to enrich them based on a database|
+|Property|RegexpEnricher|Checks if the components don't have properties and tryes to enrich them based on a regexp file provided|
+|Property|DatabaseEnricher|Checks if the components don't have properties and tryes to enrich them based on a database|
+|Reference|RegexpEnricher|Checks if the components don't have references and tryes to enrich them based on a regexp file provided|
+|Reference|DatabaseEnricher|Checks if the components don't have references and tryes to enrich them based on a database|
+|Manager|CocoapodsEnricher|Tries to enrich components based on the information available in the cocoapods(https://cocoapods.org)|
+|Manager|MavenEnricher|Tries to enrich components based on the information available in the [maven](https://central.sonatype.com)|
+|Manager|NPMEnricher|Tries to enrich components based on the information available in the npm(https://npmjs.com)|
+|Manager|PyPiEnricher|Tries to enrich components based on the information available in the pypi(https://pypi.org)|
 
 ## Install
 
