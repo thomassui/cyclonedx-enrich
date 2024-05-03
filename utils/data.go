@@ -1,6 +1,23 @@
 package utils
 
-import "github.com/CycloneDX/cyclonedx-go"
+import (
+	"cyclonedx-enrich/models"
+
+	"github.com/CycloneDX/cyclonedx-go"
+)
+
+var RulesEmpty = []models.RuleEntry{}
+var Rules = []models.RuleEntry{
+	{Rule: ".*com.example.*", Licenses: []string{"Example License"}},
+	{Rule: ".*io.example.*", Licenses: []string{"MIT License"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/release-documentation@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/samples@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/javax.servlet/servlet-api@2.5.*", Licenses: []string{"Apache-2.0"}},
+	{Rule: "pkg:maven/org.antlr/antlr-runtime@3.4.*", Licenses: []string{"BSD-1-Clause"}},
+	{Rule: "pkg:maven/org.javamoney/moneta@1.4.*", Licenses: []string{"Apache-2.0"}},
+	{Rule: "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.2.*", Licenses: []string{"Apache-2.0"}},
+}
 
 var ComponentEmpty = &cyclonedx.Component{}
 var ComponentWithData = &cyclonedx.Component{
