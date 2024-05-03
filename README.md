@@ -1,5 +1,5 @@
 # cyclonedx-enrich
-![Coverage](https://img.shields.io/badge/Coverage-0.0%25-red)
+![Coverage](https://img.shields.io/badge/Coverage-28.3%25-red)
 
 Enrich cyclonedx files
 
