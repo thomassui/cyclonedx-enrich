@@ -28,20 +28,20 @@ An enricher is a small struct that provides 2 methods.
 - `Skip` - A method that defines if the enricher should be executed
 - `Enrich` - A method which will apply the enrichments
 
-|Type|Enricher|Description|
-|---|---|---|
-|License|RegexpEnricher|Checks if the components don't have licenses and tries to enrich them based on a regexp file provided|
-|License|DatabaseEnricher|Checks if the components don't have licenses and tries to enrich them based on a database|
-|Hash|RegexpEnricher|Checks if the components don't have hashes and tries to enrich them based on a regexp file provided|
-|Hash|DatabaseEnricher|Checks if the components don't have hashes and tries to enrich them based on a database|
-|Property|RegexpEnricher|Checks if the components don't have properties and tries to enrich them based on a regexp file provided|
-|Property|DatabaseEnricher|Checks if the components don't have properties and tries to enrich them based on a database|
-|Reference|RegexpEnricher|Checks if the components don't have references and tries to enrich them based on a regexp file provided|
-|Reference|DatabaseEnricher|Checks if the components don't have references and tries to enrich them based on a database|
-|Manager|CocoapodsEnricher|Enrich components based on the information available in the [cocoapods](https://cocoapods.org)|
-|Manager|MavenEnricher|Enrich components based on the information available in the [maven](https://central.sonatype.com)|
-|Manager|NPMEnricher|Enrich components based on the information available in the [npm](https://npmjs.com)|
-|Manager|PyPiEnricher|Enrich components based on the information available in the [pypi](https://pypi.org)|
+|Type|Enricher|Description|Requires|
+|---|---|---|---|
+|License|RegexpEnricher|Checks if the components don't have licenses and tries to enrich them based on a regexp file provided|Regexp|
+|License|DatabaseEnricher|Checks if the components don't have licenses and tries to enrich them based on a database|DB|
+|Hash|RegexpEnricher|Checks if the components don't have hashes and tries to enrich them based on a regexp file provided|Regexp|
+|Hash|DatabaseEnricher|Checks if the components don't have hashes and tries to enrich them based on a database|DB|
+|Property|RegexpEnricher|Checks if the components don't have properties and tries to enrich them based on a regexp file provided|Regexp|
+|Property|DatabaseEnricher|Checks if the components don't have properties and tries to enrich them based on a database|DB|
+|Reference|RegexpEnricher|Checks if the components don't have references and tries to enrich them based on a regexp file provided|Regexp|
+|Reference|DatabaseEnricher|Checks if the components don't have references and tries to enrich them based on a database|DB|
+|Manager|CocoapodsEnricher|Enrich components based on the information available in the [cocoapods](https://cocoapods.org)|-|
+|Manager|MavenEnricher|Enrich components based on the information available in the [maven](https://central.sonatype.com)|-|
+|Manager|NPMEnricher|Enrich components based on the information available in the [npm](https://npmjs.com)|-|
+|Manager|PyPiEnricher|Enrich components based on the information available in the [pypi](https://pypi.org)|-|
 
 ## Install
 
@@ -107,17 +107,23 @@ Starts a enricher server on port 8080.
 cyclonedx-enrich -server
 ```
 
-## Run server with docker
+### Run server with docker
 
 ```
 docker run --env-file ./.env -p 8080:8080 fnxpt/cyclonedx-enrich:latest --database-download --server
 ```
 
-## Example to call server
+### Example to call server
 
 ```
 curl -X POST http://127.0.0.1:8080/sbom/enrich -H "X-Api-Key: DUMMY" -d @bom.json
 ```
 
+## Usage scenarios
 
+### Case 1:
+
+```cyclonedx-enrich --download-database --sbom-enrich mysbom.json```
+
+#TODO: See if possible to put link to compare 2 files
 
