@@ -1,7 +1,6 @@
 package hashes
 
 import (
-	"os"
 	"testing"
 
 	"cyclonedx-enrich/utils"
@@ -10,6 +9,9 @@ import (
 )
 
 func TestDatabaseEnricher_Skip_WithoutDatabase(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
@@ -19,8 +21,6 @@ func TestDatabaseEnricher_Skip_WithoutDatabase(t *testing.T) {
 		{name: "Test without database with component with data", component: utils.ComponentWithData, want: true},
 		{name: "Test without database with component without data", component: utils.ComponentWithoutData, want: true},
 	}
-
-	os.Setenv("DATABASE_FILE", "NO_DATABASE.db")
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -33,6 +33,9 @@ func TestDatabaseEnricher_Skip_WithoutDatabase(t *testing.T) {
 }
 
 func TestDatabaseEnricher_Skip(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
@@ -43,7 +46,6 @@ func TestDatabaseEnricher_Skip(t *testing.T) {
 		{name: "Test with component with data", component: utils.ComponentWithData, want: true},
 		// {name: "Test with component without data", component: utils.ComponentWithoutData, want: false}, //TODO: FAILING
 	}
-	os.Setenv("DATABASE_FILE", "../../database.db") //TODO: GET A BETTER WAY TO RESOLVE DATABASE
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &DatabaseEnricher{}
@@ -55,6 +57,9 @@ func TestDatabaseEnricher_Skip(t *testing.T) {
 }
 
 func TestDatabaseEnricher_Enrich_WithoutDatabase(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
@@ -63,7 +68,6 @@ func TestDatabaseEnricher_Enrich_WithoutDatabase(t *testing.T) {
 		//TODO: VALIDATE IF DATA WAS ADDED
 		// {name: "Test with component without data", component: utils.ComponentWithoutData, wantErr: false}, //TODO: FAILING
 	}
-	os.Setenv("DATABASE_FILE", "../../database.db") //TODO: GET A BETTER WAY TO RESOLVE DATABASE
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &DatabaseEnricher{}
@@ -75,6 +79,9 @@ func TestDatabaseEnricher_Enrich_WithoutDatabase(t *testing.T) {
 }
 
 func TestDatabaseEnricher_Enrich(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
@@ -83,7 +90,6 @@ func TestDatabaseEnricher_Enrich(t *testing.T) {
 		//TODO: VALIDATE IF DATA WAS ADDED
 		// {name: "Test with component without data", component: utils.ComponentWithoutData, wantErr: false}, //TODO: FAILING
 	}
-	os.Setenv("DATABASE_FILE", "../../database.db") //TODO: GET A BETTER WAY TO RESOLVE DATABASE
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &DatabaseEnricher{}

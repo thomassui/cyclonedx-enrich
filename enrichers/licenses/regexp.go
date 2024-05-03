@@ -17,13 +17,7 @@ func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
 	if len(utils.LoadRules()) == 0 {
 		return true
 	}
-
-	// TODO: VALIDATE IF IT HAS EXPRESSION OR LICENSE OBJECT
-	if len(component.PackageURL) == 0 || component.Licenses != nil {
-		//SKIP
-		return true
-	}
-	return false
+	return skip(component)
 }
 
 func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {

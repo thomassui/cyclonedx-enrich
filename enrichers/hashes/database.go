@@ -17,7 +17,7 @@ func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
 	if utils.ConnectDatabase() == nil {
 		return true
 	}
-	return len(component.PackageURL) == 0 || component.Hashes != nil
+	return skip(component)
 }
 
 func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {

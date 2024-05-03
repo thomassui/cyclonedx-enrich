@@ -16,12 +16,7 @@ type ExtractEnricher struct {
 }
 
 func (e *ExtractEnricher) Skip(component *cyclonedx.Component) bool {
-	// TODO: VALIDATE IF IT HAS EXPRESSION OR LICENSE OBJECT
-	if len(component.PackageURL) == 0 || component.Licenses != nil {
-		//SKIP
-		return true
-	}
-	return false
+	return skip(component)
 }
 
 func (e *ExtractEnricher) Enrich(component *cyclonedx.Component) error {

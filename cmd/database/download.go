@@ -12,7 +12,7 @@ import (
 func download() error {
 
 	filename := utils.Getenv("DATABASE_FILE", "database.db")
-	rawURL := utils.Getenv("DOWNLOAD_DATABASE_URL", "https://raw.githubusercontent.com/fnxpt/cyclonedx-enrich-poc/main/database.db")
+	rawURL := utils.Getenv("DOWNLOAD_DATABASE_URL", "https://raw.githubusercontent.com/fnxpt/cyclonedx-enrich-data/main/database.db")
 	defaultProgressBar := &ProgressBar{}
 
 	ctx := context.Background()

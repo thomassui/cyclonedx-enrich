@@ -17,12 +17,7 @@ func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
 	if utils.ConnectDatabase() == nil {
 		return true
 	}
-	// TODO: VALIDATE IF IT HAS EXPRESSION OR LICENSE OBJECT
-	if len(component.PackageURL) == 0 || component.Licenses != nil {
-		//SKIP
-		return true
-	}
-	return false
+	return skip(component)
 }
 
 func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {

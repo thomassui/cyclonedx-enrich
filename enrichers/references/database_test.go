@@ -9,6 +9,9 @@ import (
 )
 
 func TestDatabaseEnricher_Skip(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
@@ -30,6 +33,9 @@ func TestDatabaseEnricher_Skip(t *testing.T) {
 }
 
 func TestDatabaseEnricher_Enrich(t *testing.T) {
+	teardown := setup(t)
+	defer teardown(t)
+
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
