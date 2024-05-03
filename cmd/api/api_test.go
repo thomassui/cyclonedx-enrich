@@ -8,19 +8,16 @@ import (
 )
 
 func TestAuthorizeRequest(t *testing.T) {
-	type args struct {
-		isPublic bool
-	}
 	tests := []struct {
-		name string
-		args args
-		want gin.HandlerFunc
+		name     string
+		isPublic bool
+		want     gin.HandlerFunc
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := AuthorizeRequest(tt.args.isPublic); !reflect.DeepEqual(got, tt.want) {
+			if got := AuthorizeRequest(tt.isPublic); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("AuthorizeRequest() = %v, want %v", got, tt.want)
 			}
 		})
@@ -28,12 +25,9 @@ func TestAuthorizeRequest(t *testing.T) {
 }
 
 func TestRandToken(t *testing.T) {
-	type args struct {
-		l int
-	}
 	tests := []struct {
 		name    string
-		args    args
+		l       int
 		want    string
 		wantErr bool
 	}{
@@ -41,7 +35,7 @@ func TestRandToken(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := RandToken(tt.args.l)
+			got, err := RandToken(tt.l)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("RandToken() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -91,18 +85,15 @@ func Test_getRoutes(t *testing.T) {
 }
 
 func TestClearCache(t *testing.T) {
-	type args struct {
-		c *gin.Context
-	}
 	tests := []struct {
 		name string
-		args args
+		c    *gin.Context
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ClearCache(tt.args.c)
+			ClearCache(tt.c)
 		})
 	}
 }
