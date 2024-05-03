@@ -10,19 +10,16 @@ import (
 )
 
 func Test_enrichFiles(t *testing.T) {
-	type args struct {
-		expression string
-	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name       string
+		expression string
+		wantErr    bool
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := enrichFiles(tt.args.expression); (err != nil) != tt.wantErr {
+			if err := enrichFiles(tt.expression); (err != nil) != tt.wantErr {
 				t.Errorf("enrichFiles() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -30,19 +27,16 @@ func Test_enrichFiles(t *testing.T) {
 }
 
 func Test_enrichFile(t *testing.T) {
-	type args struct {
-		filename string
-	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name     string
+		filename string
+		wantErr  bool
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := enrichFile(tt.args.filename); (err != nil) != tt.wantErr {
+			if err := enrichFile(tt.filename); (err != nil) != tt.wantErr {
 				t.Errorf("enrichFile() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -50,12 +44,9 @@ func Test_enrichFile(t *testing.T) {
 }
 
 func TestEnrich(t *testing.T) {
-	type args struct {
-		data io.Reader
-	}
 	tests := []struct {
 		name    string
-		args    args
+		data    io.Reader
 		want    *cyclonedx.BOM
 		wantErr bool
 	}{
@@ -63,7 +54,7 @@ func TestEnrich(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Enrich(tt.args.data)
+			got, err := Enrich(tt.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Enrich() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -76,12 +67,9 @@ func TestEnrich(t *testing.T) {
 }
 
 func Test_load(t *testing.T) {
-	type args struct {
-		data io.Reader
-	}
 	tests := []struct {
 		name    string
-		args    args
+		data    io.Reader
 		want    *cyclonedx.BOM
 		wantErr bool
 	}{
@@ -89,7 +77,7 @@ func Test_load(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := load(tt.args.data)
+			got, err := load(tt.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("load() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -118,70 +106,59 @@ func Test_loadEnrichers(t *testing.T) {
 }
 
 func Test_processSBOM(t *testing.T) {
-	type args struct {
-		bom *cyclonedx.BOM
-	}
 	tests := []struct {
 		name string
-		args args
+		bom  *cyclonedx.BOM
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			processSBOM(tt.args.bom)
+			processSBOM(tt.bom)
 		})
 	}
 }
 
 func Test_parseComponents(t *testing.T) {
-	type args struct {
-		components *[]cyclonedx.Component
-	}
 	tests := []struct {
-		name string
-		args args
+		name       string
+		components *[]cyclonedx.Component
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			parseComponents(tt.args.components)
+			parseComponents(tt.components)
 		})
 	}
 }
 
 func Test_parseComponent(t *testing.T) {
-	type args struct {
-		component *cyclonedx.Component
-	}
+
 	tests := []struct {
-		name string
-		args args
+		name      string
+		component *cyclonedx.Component
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			parseComponent(tt.args.component)
+			parseComponent(tt.component)
 		})
 	}
 }
 
 func Test_getType(t *testing.T) {
-	type args struct {
-		myvar interface{}
-	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name  string
+		myvar interface{}
+		want  string
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getType(tt.args.myvar); got != tt.want {
+			if got := getType(tt.myvar); got != tt.want {
 				t.Errorf("getType() = %v, want %v", got, tt.want)
 			}
 		})

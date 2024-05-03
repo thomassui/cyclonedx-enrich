@@ -1,10 +1,18 @@
 package references
 
 import (
+	"os"
 	"testing"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
+
+func setup(tb testing.TB) func(tb testing.TB) {
+	os.Setenv("DATABASE_FILE", "testdata/database.db")
+	os.Setenv("REGEXP_FILE", "testdata/regexp.yaml")
+	// Return a function to teardown the test
+	return func(tb testing.TB) {}
+}
 
 var emptyArray = make([]cyclonedx.ExternalReference, 0)
 var filledArray = []cyclonedx.ExternalReference{

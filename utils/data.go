@@ -1,9 +1,67 @@
 package utils
 
-import "github.com/CycloneDX/cyclonedx-go"
+import (
+	"cyclonedx-enrich/models"
+
+	"github.com/CycloneDX/cyclonedx-go"
+)
+
+var RulesEmpty = []models.RuleEntry{}
+var Rules = []models.RuleEntry{
+	{Rule: ".*com.example.*", Licenses: []string{"Example License"}},
+	{Rule: ".*io.example.*", Licenses: []string{"MIT License"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/release-documentation@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/samples@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
+	{Rule: "pkg:maven/javax.servlet/servlet-api@2.5.*", Licenses: []string{"Apache-2.0"}},
+	{Rule: "pkg:maven/org.antlr/antlr-runtime@3.4.*", Licenses: []string{"BSD-1-Clause"}},
+	{Rule: "pkg:maven/org.javamoney/moneta@1.4.*", Licenses: []string{"Apache-2.0"}},
+	{Rule: "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.2.*", Licenses: []string{"Apache-2.0"}},
+}
 
 var ComponentEmpty = &cyclonedx.Component{}
+
 var ComponentWithData = &cyclonedx.Component{
+	Type:    "library",
+	BOMRef:  "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2?type=pom",
+	Group:   "com.sun.xml.ws",
+	Name:    "jaxws-ri",
+	Version: "2.3.2",
+	Scope:   "required",
+	Hashes: &[]cyclonedx.Hash{
+		{Algorithm: "MD5", Value: "a0cbf1399c88a0435be995c0f68a3baa"},
+		{Algorithm: "SHA-1", Value: "15ee0d893c452db7c4865eacb37cf5355c6c5cd7"},
+		{Algorithm: "SHA-256", Value: "b3f164c170d7a281a5b869b0ead0fbca3f3c9e06a01b1be521460816eef861e5"},
+		{Algorithm: "SHA-512", Value: "3cc8334f21ca594e6b62d5d18e6219bb781d2a51edd790bc981b80bcd701310ad4cb83541e19dd17214ff61d8c2fda09c83b2c6473da3a2360c770e8fdad53ce"},
+		{Algorithm: "SHA-384", Value: "52b81b209ec0b5f4920420203fff8911f7d61defcbcef588debdfa85d2dc22f8d1126d02905092e7131a23698afec639"},
+	},
+	Licenses: &cyclonedx.Licenses{
+		cyclonedx.LicenseChoice{License: &cyclonedx.License{Name: "Apache 2.0"}},
+		cyclonedx.LicenseChoice{License: &cyclonedx.License{Name: "EDL 1.0"}},
+	},
+	PackageURL: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2?type=pom",
+	ExternalReferences: &[]cyclonedx.ExternalReference{
+		{URL: "https://github.com/OpenAPITools/jackson-databind-nullable", Type: "website"},
+		{URL: "https://oss.sonatype.org/service/local/staging/deploy/maven2/", Type: "distribution"},
+		{URL: "https://github.com/OpenAPITools/jackson-databind-nullable", Type: "vcs"},
+	},
+	Properties: &[]cyclonedx.Property{
+		{Name: "cdx:npm:package:path", Value: "node_modules/@angular/cdk/node_modules/parse5"},   //TODO: GET BETTER DATA
+		{Name: "cdx:npm:package:path2", Value: "node_modules/@angular/cdk/node_modules/parse52"}, //TODO: GET BETTER DATA
+	},
+}
+
+var ComponentWithoutData = &cyclonedx.Component{
+	Type:       "library",
+	BOMRef:     "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2?type=pom",
+	Group:      "com.sun.xml.ws",
+	Name:       "jaxws-ri",
+	Version:    "2.3.2",
+	Scope:      "required",
+	PackageURL: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2?type=pom",
+}
+
+var ComponentNotInDatabase = &cyclonedx.Component{
 	Type:        "library",
 	BOMRef:      "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
 	Group:       "org.openapitools",
@@ -31,16 +89,6 @@ var ComponentWithData = &cyclonedx.Component{
 		{Name: "cdx:npm:package:path", Value: "node_modules/@angular/cdk/node_modules/parse5"},   //TODO: GET BETTER DATA
 		{Name: "cdx:npm:package:path2", Value: "node_modules/@angular/cdk/node_modules/parse52"}, //TODO: GET BETTER DATA
 	},
-}
-var ComponentWithoutData = &cyclonedx.Component{
-	Type:        "library",
-	BOMRef:      "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
-	Group:       "org.openapitools",
-	Name:        "jackson-databind-nullable",
-	Version:     "0.2.4",
-	Description: "JsonNullable wrapper class and Jackson module to support fields with meaningful null values.",
-	Scope:       "required",
-	PackageURL:  "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
 }
 
 var ComponentMaven = &cyclonedx.Component{

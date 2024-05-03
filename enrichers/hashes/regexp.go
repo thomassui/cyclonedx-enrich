@@ -14,7 +14,10 @@ type RegexpEnricher struct {
 }
 
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
-	return component.Hashes != nil
+	if len(utils.LoadRules()) == 0 {
+		return true
+	}
+	return skip(component)
 }
 
 func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {

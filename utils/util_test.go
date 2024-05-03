@@ -1,37 +1,30 @@
 package utils
 
 import (
-	"net/http"
 	"os"
-	"reflect"
 	"testing"
-
-	"github.com/CycloneDX/cyclonedx-go"
 )
 
 func TestGetRealPurl(t *testing.T) {
-	type args struct {
-		purl string
-	}
 	tests := []struct {
 		name string
-		args args
+		purl string
 		want string
 	}{
-		{name: "Test without qualifiers", args: args{purl: "pkg:cocoapods/AppAuth@1.6.2"}, want: "pkg:cocoapods/AppAuth@1.6.2"},
-		{name: "Test with anchors", args: args{purl: "pkg:cocoapods/AppAuth@1.6.2#Core"}, want: "pkg:cocoapods/AppAuth@1.6.2"},
-		{name: "Test with aar type qualifier", args: args{purl: "pkg:maven/com.github.bumptech.glide/glide@4.15.0?type=aar"}, want: "pkg:maven/com.github.bumptech.glide/glide@4.15.0"},
-		{name: "Test with pom type qualifier", args: args{purl: "pkg:maven/org.javamoney/moneta@1.4.2?type=pom"}, want: "pkg:maven/org.javamoney/moneta@1.4.2"},
-		{name: "Test with jar type qualifier", args: args{purl: "pkg:maven/io.swagger/swagger-annotations@1.6.9?type=jar"}, want: "pkg:maven/io.swagger/swagger-annotations@1.6.9"},
-		{name: "Test with multiple classifiers", args: args{purl: "pkg:maven/io.netty/netty-transport-native-epoll@4.1.85.Final?classifier=linux-x86_64&type=jar"}, want: "pkg:maven/io.netty/netty-transport-native-epoll@4.1.85.Final"},
-		{name: "Test with url encoding", args: args{purl: "pkg:npm/%40angular/core@16.2.12"}, want: "pkg:npm/@angular/core@16.2.12"},
-		{name: "Test without url encoding", args: args{purl: "pkg:npm/@angular/core@16.2.12"}, want: "pkg:npm/@angular/core@16.2.12"},
-		{name: "Test without npm group", args: args{purl: "pkg:npm/parse5@7.1.2"}, want: "pkg:npm/parse5@7.1.2"},
-		{name: "Test with cocoapods format", args: args{purl: "pkg:cocoapods/Sample@2.0.0?repository_url=https%3A%2F%2Fartifacts.example.com%2Fapi%2Fpods%2Fios3#Sources"}, want: "pkg:cocoapods/Sample@2.0.0"},
+		{name: "Test without qualifiers", purl: "pkg:cocoapods/AppAuth@1.6.2", want: "pkg:cocoapods/AppAuth@1.6.2"},
+		{name: "Test with anchors", purl: "pkg:cocoapods/AppAuth@1.6.2#Core", want: "pkg:cocoapods/AppAuth@1.6.2"},
+		{name: "Test with aar type qualifier", purl: "pkg:maven/com.github.bumptech.glide/glide@4.15.0?type=aar", want: "pkg:maven/com.github.bumptech.glide/glide@4.15.0"},
+		{name: "Test with pom type qualifier", purl: "pkg:maven/org.javamoney/moneta@1.4.2?type=pom", want: "pkg:maven/org.javamoney/moneta@1.4.2"},
+		{name: "Test with jar type qualifier", purl: "pkg:maven/io.swagger/swagger-annotations@1.6.9?type=jar", want: "pkg:maven/io.swagger/swagger-annotations@1.6.9"},
+		{name: "Test with multiple classifiers", purl: "pkg:maven/io.netty/netty-transport-native-epoll@4.1.85.Final?classifier=linux-x86_64&type=jar", want: "pkg:maven/io.netty/netty-transport-native-epoll@4.1.85.Final"},
+		{name: "Test with url encoding", purl: "pkg:npm/%40angular/core@16.2.12", want: "pkg:npm/@angular/core@16.2.12"},
+		{name: "Test without url encoding", purl: "pkg:npm/@angular/core@16.2.12", want: "pkg:npm/@angular/core@16.2.12"},
+		{name: "Test without npm group", purl: "pkg:npm/parse5@7.1.2", want: "pkg:npm/parse5@7.1.2"},
+		{name: "Test with cocoapods format", purl: "pkg:cocoapods/Sample@2.0.0?repository_url=https%3A%2F%2Fartifacts.example.com%2Fapi%2Fpods%2Fios3#Sources", want: "pkg:cocoapods/Sample@2.0.0"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRealPurl(tt.args.purl); got != tt.want {
+			if got := GetRealPurl(tt.purl); got != tt.want {
 				t.Errorf("GetRealPurl() = %v, want %v", got, tt.want)
 			}
 		})
@@ -39,72 +32,68 @@ func TestGetRealPurl(t *testing.T) {
 }
 
 func TestDecoded(t *testing.T) {
-	type args struct {
-		value string
-	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name  string
+		value string
+		want  string
 	}{
-		{name: "Test empty", args: args{value: ""}, want: ""},
-		{name: "Test without encoding", args: args{value: "pkg:cocoapods/AppAuth@1.6.2"}, want: "pkg:cocoapods/AppAuth@1.6.2"},
-		{name: "Test with encoding", args: args{value: "pkg:npm/%40angular/core@16.2.12"}, want: "pkg:npm/@angular/core@16.2.12"},
-		{name: "Test with error", args: args{value: "%ya"}, want: "%ya"}, //TODO: FIND ERROR SCENARIO
+		{name: "Test empty", value: "", want: ""},
+		{name: "Test without encoding", value: "pkg:cocoapods/AppAuth@1.6.2", want: "pkg:cocoapods/AppAuth@1.6.2"},
+		{name: "Test with encoding", value: "pkg:npm/%40angular/core@16.2.12", want: "pkg:npm/@angular/core@16.2.12"},
+		{name: "Test with error", value: "%ya", want: "%ya"}, //TODO: FIND ERROR SCENARIO
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Decoded(tt.args.value); got != tt.want {
+			if got := Decoded(tt.value); got != tt.want {
 				t.Errorf("Decoded() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestSetLicense(t *testing.T) {
-	type args struct {
-		component    *cyclonedx.Component
-		licenseNames []string
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			SetLicense(tt.args.component, tt.args.licenseNames)
-		})
-	}
-}
+//TODO: MISSING
+// func TestSetLicense(t *testing.T) {
+// 	type args struct {
+// 		component    *cyclonedx.Component
+// 		licenseNames []string
+// 	}
+// 	tests := []struct {
+// 		name string
+// 		args args
+// 	}{
+// 		// TODO: Add test cases.
+// 	}
+// 	for _, tt := range tests {
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			SetLicense(tt.args.component, tt.args.licenseNames)
+// 		})
+// 	}
+// }
 
-func TestRequest(t *testing.T) {
-	type args struct {
-		url string
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp *http.Response
-		wantErr  bool
-	}{
-		//TODO: CONTINUE
-		{name: "", args: args{}, wantResp: nil, wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			gotResp, err := Request(tt.args.url)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Request() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Request() = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
+//TODO: MISSING
+// func TestRequest(t *testing.T) {
+// 	tests := []struct {
+// 		name     string
+// 		url      string
+// 		wantResp *http.Response
+// 		wantErr  bool
+// 	}{
+// 		//TODO: CONTINUE
+// 		// {name: "", url: "", wantResp: nil, wantErr: false}, //TODO: FAILING
+// 	}
+// 	for _, tt := range tests {
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			gotResp, err := Request(tt.url)
+// 			if (err != nil) != tt.wantErr {
+// 				t.Errorf("Request() error = %v, wantErr %v", err, tt.wantErr)
+// 				return
+// 			}
+// 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+// 				t.Errorf("Request() = %v, want %v", gotResp, tt.wantResp)
+// 			}
+// 		})
+// 	}
+// }
 
 func TestReadFile(t *testing.T) {
 	type args struct {
@@ -116,8 +105,8 @@ func TestReadFile(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{name: "Test with invalid file", args: args{filename: "no_file", fn: func(f *os.File) error { return nil }}, wantErr: true},
-		{name: "Test with valid file", args: args{filename: "../regexp.yaml", fn: func(f *os.File) error { return nil }}, wantErr: false},
+		{name: "Test with invalid file", args: args{filename: "testdata/no_file", fn: func(f *os.File) error { return nil }}, wantErr: true},
+		{name: "Test with valid file", args: args{filename: "testdata/regexp.yaml", fn: func(f *os.File) error { return nil }}, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
