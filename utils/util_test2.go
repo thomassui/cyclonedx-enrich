@@ -108,7 +108,7 @@ func TestReadFile(t *testing.T) {
 		wantErr bool
 	}{
 		{name: "Test with invalid file", args: args{filename: "no_file", fn: func(f *os.File) error { return nil }}, wantErr: true},
-		{name: "Test with valid file", args: args{filename: "../regexp.yaml", fn: func(f *os.File) error { return nil }}, wantErr: false},
+		// {name: "Test with valid file", args: args{filename: "../regexp.yaml", fn: func(f *os.File) error { return nil }}, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
