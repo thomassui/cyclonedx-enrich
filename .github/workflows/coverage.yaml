@@ -14,10 +14,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v5
+      continue-on-error: true
       with:
         go-version: '^1.22.0'
-    - run: |
+    - id: tests
+      run: |
         go test -v ./... -covermode=count -coverprofile=coverage.out
+        echo "result_code=$?" >> $GITHUB_OUTPUT
         go tool cover -func=coverage.out -o=coverage.out
 
     - name: Go Coverage Badge  # Pass the `coverage.out` output to this action
@@ -46,3 +49,6 @@ jobs:
         github_token: ${{ github.token }}
         branch: ${{ github.head_ref }}
         force: true
+
+    - name: Set exit code
+      run: exit ${{ steps.tests.outputs.result_code }}

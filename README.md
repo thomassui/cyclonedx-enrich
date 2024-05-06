@@ -1,7 +1,7 @@
 # cyclonedx-enrich
 ![Coverage](https://img.shields.io/badge/Coverage-0.0%25-red)
 [![go report card](https://goreportcard.com/badge/github.com/fnxpt/cyclonedx-enrich "go report card")](https://goreportcard.com/report/github.com/fnxpt/cyclonedx-enrich)
-[![test status](https://github.com/fnxpt/cyclonedx-enrich/workflows/coverage/badge.svg?branch=main "test status")](https://github.com/fnxpt/cyclonedx-enrich/actions)
+[![status](https://github.com/fnxpt/cyclonedx-enrich/workflows/coverage.yaml/badge.svg?branch=main "status")](https://github.com/fnxpt/cyclonedx-enrich/actions)
 [![MIT license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Enrich cyclonedx files
