@@ -5,11 +5,5 @@ type RuleEntry struct {
 	Licenses   []string
 	Properties map[string]string
 	Hashes     map[string]string
-	References []RuleReference
-}
-
-type RuleReference struct {
-	URL     string
-	Type    string
-	Comment string
+	References []Reference
 }
