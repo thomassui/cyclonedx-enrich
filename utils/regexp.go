@@ -53,7 +53,7 @@ func loadRules() ([]models.RuleEntry, error) {
 func EnrichRules(component *cyclonedx.Component, fn func(item *models.RuleEntry) error) error {
 	rules := LoadRules()
 
-	if rules == nil {
+	if len(rules) == 0 {
 		return fmt.Errorf("unable to access rules")
 	}
 
