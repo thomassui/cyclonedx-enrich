@@ -13,10 +13,7 @@ import (
 
 	"cyclonedx-enrich/enrichers/hashes"
 	"cyclonedx-enrich/enrichers/licenses"
-	"cyclonedx-enrich/enrichers/managers/cocoapods"
-	"cyclonedx-enrich/enrichers/managers/maven"
-	"cyclonedx-enrich/enrichers/managers/npm"
-	"cyclonedx-enrich/enrichers/managers/pypi"
+	"cyclonedx-enrich/enrichers/managers"
 	"cyclonedx-enrich/enrichers/properties"
 	"cyclonedx-enrich/enrichers/references"
 	"cyclonedx-enrich/models"
@@ -124,10 +121,10 @@ func loadEnrichers() []models.Enricher {
 		&references.DatabaseEnricher{},
 
 		//managers
-		&maven.MavenEnricher{},
-		&npm.NPMEnricher{},
-		&cocoapods.CocoapodsEnricher{},
-		&pypi.PyPiEnricher{},
+		&managers.MavenEnricher{},
+		&managers.NPMEnricher{},
+		&managers.CocoapodsEnricher{},
+		&managers.PyPiEnricher{},
 	}
 
 	if value, _ := strconv.ParseBool(os.Getenv("ALLOW_EXTRACT")); value {

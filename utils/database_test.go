@@ -16,8 +16,7 @@ func TestConnectDatabase(t *testing.T) {
 	}
 	for _, tt := range tests {
 
-		isDatabaseInitialized = false
-		database = nil
+		ResetDatabase()
 		os.Setenv("DATABASE_FILE", tt.database)
 
 		t.Run(tt.name, func(t *testing.T) {

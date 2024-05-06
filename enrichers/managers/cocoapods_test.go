@@ -1,4 +1,4 @@
-package cocoapods
+package managers
 
 import (
 	"cyclonedx-enrich/utils"
@@ -8,18 +8,17 @@ import (
 )
 
 func TestCocoapodsEnricher_Skip(t *testing.T) {
-
 	tests := []struct {
 		name      string
 		component *cyclonedx.Component
 		want      bool
 	}{
-		//TODO: CONTINUE
-		{name: "Test with empty component", component: utils.ComponentEmpty, want: true},
-		{name: "Test with component with cocoapods", component: utils.ComponentCocoapods, want: false},
-		{name: "Test with component with maven", component: utils.ComponentMaven, want: true},
-		{name: "Test with component with npm", component: utils.ComponentNpm, want: true},
-		{name: "Test with component with pypi", component: utils.ComponentPypi, want: true},
+		{name: "Test with nil package", component: nil, want: true},
+		{name: "Test with empty package", component: utils.ComponentEmpty, want: true},
+		{name: "Test with cocoapods package", component: utils.ComponentCocoapods, want: false},
+		{name: "Test with maven package", component: utils.ComponentMaven, want: true},
+		{name: "Test with npm package", component: utils.ComponentMaven, want: true},
+		{name: "Test with pypi package", component: utils.ComponentPypi, want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -32,19 +31,20 @@ func TestCocoapodsEnricher_Skip(t *testing.T) {
 }
 
 func TestCocoapodsEnricher_Enrich(t *testing.T) {
-
-	tests := []struct {
-		name      string
+	type args struct {
 		component *cyclonedx.Component
-		wantErr   bool
+	}
+	tests := []struct {
+		name    string
+		e       *CocoapodsEnricher
+		args    args
+		wantErr bool
 	}{
-		//TODO: CONTINUE
-		// {name: "Test with component with cocoapods", component: utils.ComponentCocoapods, wantErr: false}, //TODO: FAILING
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			e := &CocoapodsEnricher{}
-			if err := e.Enrich(tt.component); (err != nil) != tt.wantErr {
+			if err := tt.e.Enrich(tt.args.component); (err != nil) != tt.wantErr {
 				t.Errorf("CocoapodsEnricher.Enrich() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

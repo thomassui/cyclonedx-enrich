@@ -3,9 +3,11 @@ package utils
 import (
 	"cyclonedx-enrich/models"
 	"errors"
+	"fmt"
 	"log/slog"
 	"os"
 
+	"github.com/CycloneDX/cyclonedx-go"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -13,6 +15,11 @@ import (
 
 var isDatabaseInitialized bool
 var database *gorm.DB
+
+func ResetDatabase() {
+	database = nil
+	isDatabaseInitialized = false
+}
 
 func ConnectDatabase() *gorm.DB {
 	if !isDatabaseInitialized {
@@ -56,4 +63,21 @@ func Register() error {
 	err = db.AutoMigrate(entities...)
 
 	return err
+}
+
+func EnrichDB(component *cyclonedx.Component, preload string, fn func(item *models.Component) error) error {
+	db := ConnectDatabase()
+
+	if db == nil {
+		return fmt.Errorf("Unable to access database")
+	}
+
+	var item *models.Component
+	db.Where("purl = ?", GetRealPurl(component.PackageURL)).Preload(preload).First(&item)
+
+	if item != nil {
+		return fn(item)
+	}
+
+	return fmt.Errorf("component doesn't met criteria")
 }

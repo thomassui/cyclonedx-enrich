@@ -2,7 +2,6 @@ package references
 
 import (
 	"cyclonedx-enrich/models"
-	"fmt"
 
 	"cyclonedx-enrich/utils"
 
@@ -14,32 +13,11 @@ type DatabaseEnricher struct {
 }
 
 func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
-	if utils.ConnectDatabase() == nil {
-		return true
-	}
-
-	return true
+	return utils.ConnectDatabase() == nil
 }
 
 func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {
-	db := utils.ConnectDatabase()
-
-	var item *models.Component
-	db.Where("purl = ?", utils.GetRealPurl(component.PackageURL)).Preload("References").First(&item)
-
-	if item != nil {
-
-		for _, ref := range item.References {
-			if !hasKey(*component.ExternalReferences, ref.URL, ref.Type) {
-				*component.ExternalReferences = append(*component.ExternalReferences, cyclonedx.ExternalReference{
-					URL:     ref.URL,
-					Type:    cyclonedx.ExternalReferenceType(ref.Type),
-					Comment: ref.Comment,
-				})
-			}
-		}
-		return nil
-	}
-
-	return fmt.Errorf("component doesn't met criteria")
+	return utils.EnrichDB(component, "References", func(item *models.Component) error {
+		return enrich(component, item.References)
+	})
 }

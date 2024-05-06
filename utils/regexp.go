@@ -2,14 +2,22 @@ package utils
 
 import (
 	"cyclonedx-enrich/models"
+	"fmt"
 	"log/slog"
 	"os"
+	"regexp"
 
+	"github.com/CycloneDX/cyclonedx-go"
 	"gopkg.in/yaml.v3"
 )
 
 var isRegexpInitialized bool
 var rules = make([]models.RuleEntry, 0)
+
+func ResetRules() {
+	isRegexpInitialized = false
+	rules = make([]models.RuleEntry, 0)
+}
 
 func LoadRules() []models.RuleEntry {
 	if !isRegexpInitialized {
@@ -40,4 +48,26 @@ func loadRules() ([]models.RuleEntry, error) {
 	err = yaml.Unmarshal(data, &rules)
 
 	return rules, err
+}
+
+func EnrichRules(component *cyclonedx.Component, fn func(item *models.RuleEntry) error) error {
+	rules := LoadRules()
+
+	if rules == nil {
+		return fmt.Errorf("unable to access rules")
+	}
+
+	for _, item := range rules {
+		r, err := regexp.Compile(item.Rule)
+
+		if err != nil {
+			return err
+		}
+
+		if r.MatchString(GetRealPurl(component.PackageURL)) {
+			fn(&item)
+		}
+	}
+
+	return fmt.Errorf("component doesn't met criteria")
 }
