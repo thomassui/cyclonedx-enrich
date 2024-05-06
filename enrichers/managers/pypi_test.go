@@ -17,7 +17,7 @@ func TestPyPiEnricher_Skip(t *testing.T) {
 		{name: "Test with empty package", component: utils.ComponentEmpty, want: true},
 		{name: "Test with cocoapods package", component: utils.ComponentCocoapods, want: true},
 		{name: "Test with maven package", component: utils.ComponentMaven, want: true},
-		{name: "Test with npm package", component: utils.ComponentMaven, want: true},
+		{name: "Test with npm package", component: utils.ComponentNpm, want: true},
 		{name: "Test with pypi package", component: utils.ComponentPypi, want: false},
 	}
 	for _, tt := range tests {

@@ -79,5 +79,5 @@ func EnrichDB(component *cyclonedx.Component, preload string, fn func(item *mode
 		return fn(item)
 	}
 
-	return fmt.Errorf("component doesn't met criteria")
+	return nil
 }

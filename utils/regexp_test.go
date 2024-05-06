@@ -17,11 +17,9 @@ func TestLoadRules(t *testing.T) {
 		{name: "Test with valid regexp", filename: "testdata/regexp.yaml", want: Rules},
 	}
 	for _, tt := range tests {
-
-		ResetRules()
-		os.Setenv("REGEXP_FILE", tt.filename)
-
 		t.Run(tt.name, func(t *testing.T) {
+			ResetRules()
+			os.Setenv("REGEXP_FILE", tt.filename)
 			if got := LoadRules(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("LoadRules() = %v, want %v", got, tt.want)
 			}

@@ -19,6 +19,10 @@ func hasKey(properties []cyclonedx.Property, key string) bool {
 	return false
 }
 
+func skip(component *cyclonedx.Component) bool {
+	return component == nil || len(component.PackageURL) == 0
+}
+
 func enrich(component *cyclonedx.Component, items map[string]string) error {
 	if component.Properties == nil {
 		component.Properties = &[]cyclonedx.Property{}

@@ -12,7 +12,7 @@ type RegexpEnricher struct {
 }
 
 func (e *RegexpEnricher) Skip(component *cyclonedx.Component) bool {
-	return len(utils.LoadRules()) == 0
+	return skip(component) || len(utils.LoadRules()) == 0
 }
 
 func (e *RegexpEnricher) Enrich(component *cyclonedx.Component) error {

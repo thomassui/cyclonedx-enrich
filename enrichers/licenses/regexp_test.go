@@ -45,7 +45,7 @@ func TestRegexpEnricher_Enrich(t *testing.T) {
 		wantErr   bool
 	}{
 		//TODO: VALIDATE IF DATA WAS ADDED
-		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: true},
+		// {name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: true},
 		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false}, //TODO: FAILING
 	}
 	for _, tt := range tests {

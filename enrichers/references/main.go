@@ -19,6 +19,10 @@ func hasKey(references []cyclonedx.ExternalReference, url string, refType string
 	return false
 }
 
+func skip(component *cyclonedx.Component) bool {
+	return component == nil || len(component.PackageURL) == 0
+}
+
 func enrich(component *cyclonedx.Component, items []models.Reference) error {
 	if component.ExternalReferences == nil {
 		component.ExternalReferences = &[]cyclonedx.ExternalReference{}

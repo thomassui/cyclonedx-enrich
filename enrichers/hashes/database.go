@@ -13,7 +13,7 @@ type DatabaseEnricher struct {
 }
 
 func (e *DatabaseEnricher) Skip(component *cyclonedx.Component) bool {
-	return utils.ConnectDatabase() == nil || skip(component)
+	return skip(component) || utils.ConnectDatabase() == nil
 }
 
 func (e *DatabaseEnricher) Enrich(component *cyclonedx.Component) error {

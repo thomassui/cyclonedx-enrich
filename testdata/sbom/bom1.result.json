@@ -4,87 +4,92 @@
     "specVersion": "1.5",
     "version": 1,
     "components": [
-        {
-            "bom-ref": "pkg:npm/drmonty-datatables-colvis@1.1.2",
-            "type": "library",
-            "name": "drmonty-datatables-colvis",
-            "version": "1.1.2",
-            "purl": "pkg:npm/drmonty-datatables-colvis@1.1.2",
-            "licenses": [
-                {
-                    "license": {
-                        "name": "The Unlicense"
-                    }
-                }
-            ]
-        },
-        {
-            "bom-ref": "pkg:maven/org.javamoney/moneta@1.4?type=pom",
-            "type": "library",
-            "group": "org.javamoney",
-            "name": "moneta",
-            "version": "1.4",
-            "scope": "required",
-            "licenses": [
-                {
-                    "license": {
-                        "name": "Apache 2.0"
-                    }
-                }
-            ],
-            "hashes": [
-                {
-                    "alg": "MD5",
-                    "content": "c8b9e0273438e5ef3cea15306a276362"
-                },
-                {
-                    "alg": "SHA-1",
-                    "content": "6ca14c4f34d5c054a71ad5cd181fbea07ffd2e6d"
-                },
-                {
-                    "alg": "SHA-256",
-                    "content": "98e1d578df40732066f407a68620e72222c572ef11afb08e2c9017ca268c5753"
-                },
-                {
-                    "alg": "SHA-512",
-                    "content": "cd251b3698cb5cc56e15aa2fd18c866ac74b16b95773e510aabd7a1cda316eb3432d2318332bc67c05132613d568981e154f28f1b722ba12c1a7da2926126215"
-                },
-                {
-                    "alg": "SHA-384",
-                    "content": "d66d9c5a1698c6d46dcab7f5dd38cb37b4bb5d3417588a11db7182c31bde381ac053c502e91b8c97ac61e88f134c9f16"
-                }
-            ],
-            "purl": "pkg:maven/org.javamoney/moneta@1.4?type=pom"
-        },
-        {
-            "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-parcelize-runtime@1.8.22?type=jar",
-            "type": "library",
-            "group": "org.jetbrains.kotlin",
-            "name": "kotlin-parcelize-runtime",
-            "version": "1.8.22",
-            "description": "Runtime library for the Parcelize compiler plugin",
-            "scope": "required",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "Apache-2.0",
-                        "url": "https://opensource.org/licenses/Apache-2.0"
-                    }
-                }
-            ],
-            "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-parcelize-runtime@1.8.22?type=jar",
-            "externalReferences": [
-                {
-                    "url": "https://github.com/JetBrains/kotlin",
-                    "type": "vcs"
-                }
-            ],
-            "properties": [
-                {
-                    "name": "GradleProfileName",
-                    "value": "releaseRuntimeClasspath"
-                }
-            ]
-        }
+      {
+        "bom-ref": "pkg:npm/drmonty-datatables-colvis@1.1.2",
+        "type": "library",
+        "name": "drmonty-datatables-colvis",
+        "version": "1.1.2",
+        "hashes": [],
+        "licenses": [
+          {
+            "license": {
+              "name": "The Unlicense"
+            }
+          }
+        ],
+        "purl": "pkg:npm/drmonty-datatables-colvis@1.1.2",
+        "externalReferences": [],
+        "properties": []
+      },
+      {
+        "bom-ref": "pkg:maven/org.javamoney/moneta@1.4?type=pom",
+        "type": "library",
+        "group": "org.javamoney",
+        "name": "moneta",
+        "version": "1.4",
+        "scope": "required",
+        "hashes": [
+          {
+            "alg": "MD5",
+            "content": "c8b9e0273438e5ef3cea15306a276362"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "6ca14c4f34d5c054a71ad5cd181fbea07ffd2e6d"
+          },
+          {
+            "alg": "SHA-256",
+            "content": "98e1d578df40732066f407a68620e72222c572ef11afb08e2c9017ca268c5753"
+          },
+          {
+            "alg": "SHA-384",
+            "content": "d66d9c5a1698c6d46dcab7f5dd38cb37b4bb5d3417588a11db7182c31bde381ac053c502e91b8c97ac61e88f134c9f16"
+          },
+          {
+            "alg": "SHA-512",
+            "content": "cd251b3698cb5cc56e15aa2fd18c866ac74b16b95773e510aabd7a1cda316eb3432d2318332bc67c05132613d568981e154f28f1b722ba12c1a7da2926126215"
+          }
+        ],
+        "licenses": [
+          {
+            "license": {
+              "name": "Apache 2.0"
+            }
+          }
+        ],
+        "purl": "pkg:maven/org.javamoney/moneta@1.4?type=pom",
+        "externalReferences": [],
+        "properties": []
+      },
+      {
+        "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-parcelize-runtime@1.8.22?type=jar",
+        "type": "library",
+        "group": "org.jetbrains.kotlin",
+        "name": "kotlin-parcelize-runtime",
+        "version": "1.8.22",
+        "description": "Runtime library for the Parcelize compiler plugin",
+        "scope": "required",
+        "hashes": [],
+        "licenses": [
+          {
+            "license": {
+              "name": "Apache-2.0"
+            }
+          }
+        ],
+        "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-parcelize-runtime@1.8.22?type=jar",
+        "externalReferences": [
+          {
+            "url": "https://github.com/JetBrains/kotlin",
+            "type": "vcs"
+          }
+        ],
+        "properties": [
+          {
+            "name": "GradleProfileName",
+            "value": "releaseRuntimeClasspath"
+          }
+        ]
+      }
     ]
-}
+  }

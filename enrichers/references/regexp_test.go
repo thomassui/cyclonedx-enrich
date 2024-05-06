@@ -20,7 +20,7 @@ func TestRegexpEnricher_Skip(t *testing.T) {
 		{name: "Test without database with component with data", validEnv: false, component: *utils.ComponentWithData, want: true},
 		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, want: true},
 		{name: "Test with empty component", validEnv: true, component: *utils.ComponentEmpty, want: true},
-		{name: "Test with component with data", validEnv: true, component: *utils.ComponentWithData, want: true},
+		{name: "Test with component with data", validEnv: true, component: *utils.ComponentWithData, want: false},
 		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, want: false},
 	}
 	for _, tt := range tests {
@@ -44,8 +44,8 @@ func TestRegexpEnricher_Enrich(t *testing.T) {
 		wantErr   bool
 	}{
 		//TODO: VALIDATE IF DATA WAS ADDED
-		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: true},
-		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false}, //TODO: FAILING
+		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: false},
+		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

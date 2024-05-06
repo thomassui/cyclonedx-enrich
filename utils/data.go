@@ -10,13 +10,26 @@ var RulesEmpty = []models.RuleEntry{}
 var Rules = []models.RuleEntry{
 	{Rule: ".*com.example.*", Licenses: []string{"Example License"}},
 	{Rule: ".*io.example.*", Licenses: []string{"MIT License"}},
-	{Rule: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
 	{Rule: "pkg:maven/com.sun.xml.ws/release-documentation@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
 	{Rule: "pkg:maven/com.sun.xml.ws/samples@2.3.2.*", Licenses: []string{"CDDL", "GPL-2.0"}},
 	{Rule: "pkg:maven/javax.servlet/servlet-api@2.5.*", Licenses: []string{"Apache-2.0"}},
 	{Rule: "pkg:maven/org.antlr/antlr-runtime@3.4.*", Licenses: []string{"BSD-1-Clause"}},
 	{Rule: "pkg:maven/org.javamoney/moneta@1.4.*", Licenses: []string{"Apache-2.0"}},
 	{Rule: "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.2.*", Licenses: []string{"Apache-2.0"}},
+	{Rule: "pkg:maven/com.sun.xml.ws/jaxws-ri@2.3.2", Licenses: []string{"Apache 2.0", "EDL 1.0"},
+		Hashes: map[string]string{
+			"SHA-1":   "15ee0d893c452db7c4865eacb37cf5355c6c5cd7",
+			"SHA-256": "b3f164c170d7a281a5b869b0ead0fbca3f3c9e06a01b1be521460816eef861e5",
+			"SHA-512": "3cc8334f21ca594e6b62d5d18e6219bb781d2a51edd790bc981b80bcd701310ad4cb83541e19dd17214ff61d8c2fda09c83b2c6473da3a2360c770e8fdad53ce",
+			"SHA-384": "52b81b209ec0b5f4920420203fff8911f7d61defcbcef588debdfa85d2dc22f8d1126d02905092e7131a23698afec639",
+		}, Properties: map[string]string{
+			"cdx:npm:package:path":  "node_modules/@angular/cdk/node_modules/parse5",
+			"cdx:npm:package:path2": "node_modules/@angular/cdk/node_modules/parse52",
+		}, References: []models.Reference{
+			{URL: "https://github.com/OpenAPITools/jackson-databind-nullable", Type: "website"},
+			{URL: "https://oss.sonatype.org/service/local/staging/deploy/maven2/", Type: "distribution"},
+			{URL: "https://github.com/OpenAPITools/jackson-databind-nullable", Type: "vcs"},
+		}},
 }
 
 var ComponentEmpty = &cyclonedx.Component{}
@@ -123,12 +136,11 @@ var ComponentNpm = &cyclonedx.Component{
 
 // TODO: CHANGE COMPONENT
 var ComponentPypi = &cyclonedx.Component{
-	Type:        "library",
-	BOMRef:      "pkg:pipy/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
+	Type:        "framework",
+	BOMRef:      "pkg:pypi/aiohttp@3.9.5",
 	Group:       "org.openapitools",
-	Name:        "jackson-databind-nullable",
-	Version:     "0.2.4",
-	Description: "JsonNullable wrapper class and Jackson module to support fields with meaningful null values.",
-	Scope:       "required",
-	PackageURL:  "pkg:maven/org.openapitools/jackson-databind-nullable@0.2.4?type=jar",
+	Name:        "aiohttp",
+	Version:     "3.9.5",
+	Description: "Async http client/server framework (asyncio)",
+	PackageURL:  "pkg:pypi/aiohttp@3.9.5",
 }

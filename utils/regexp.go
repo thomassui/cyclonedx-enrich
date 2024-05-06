@@ -69,5 +69,5 @@ func EnrichRules(component *cyclonedx.Component, fn func(item *models.RuleEntry)
 		}
 	}
 
-	return fmt.Errorf("component doesn't met criteria")
+	return nil
 }
