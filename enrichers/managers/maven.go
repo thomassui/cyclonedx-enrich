@@ -47,7 +47,7 @@ func (e *MavenEnricher) Enrich(component *cyclonedx.Component) error {
 
 	//TODO: USE MORE DATA
 
-	return fmt.Errorf("component doesn't met criteria")
+	return nil
 }
 
 func parsePom(input io.ReadCloser) (*gopom.Project, error) {

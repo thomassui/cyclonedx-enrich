@@ -1,7 +1,5 @@
 package managers
 
-import "time"
-
 // COCOAPODS
 type CocoaPodsPackage struct {
 	Name           string     `json:"name"`
@@ -123,21 +121,21 @@ type ProjectUrls struct {
 }
 
 type URL struct {
-	CommentText       string      `json:"comment_text"`
-	Digests           Digests     `json:"digests"`
-	Downloads         int64       `json:"downloads"`
-	Filename          string      `json:"filename"`
-	HasSig            bool        `json:"has_sig"`
-	Md5Digest         string      `json:"md5_digest"`
-	Packagetype       string      `json:"packagetype"`
-	PythonVersion     string      `json:"python_version"`
-	RequiresPython    interface{} `json:"requires_python"`
-	Size              int64       `json:"size"`
-	UploadTime        time.Time   `json:"upload_time"`
-	UploadTimeISO8601 time.Time   `json:"upload_time_iso_8601"`
-	URL               string      `json:"url"`
-	Yanked            bool        `json:"yanked"`
-	YankedReason      interface{} `json:"yanked_reason"`
+	CommentText    string      `json:"comment_text"`
+	Digests        Digests     `json:"digests"`
+	Downloads      int64       `json:"downloads"`
+	Filename       string      `json:"filename"`
+	HasSig         bool        `json:"has_sig"`
+	Md5Digest      string      `json:"md5_digest"`
+	Packagetype    string      `json:"packagetype"`
+	PythonVersion  string      `json:"python_version"`
+	RequiresPython interface{} `json:"requires_python"`
+	Size           int64       `json:"size"`
+	// UploadTime        time.Time   `json:"upload_time"`
+	// UploadTimeISO8601 time.Time   `json:"upload_time_iso_8601"`
+	URL          string      `json:"url"`
+	Yanked       bool        `json:"yanked"`
+	YankedReason interface{} `json:"yanked_reason"`
 }
 
 type Digests struct {

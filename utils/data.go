@@ -116,6 +116,14 @@ var ComponentMaven = &cyclonedx.Component{
 }
 
 var ComponentCocoapods = &cyclonedx.Component{
+	Type:       "library",
+	BOMRef:     "pkg:cocoapods/AFNetworking@4.0.1",
+	Name:       "AFNetworking",
+	Version:    "4.0.1",
+	PackageURL: "pkg:cocoapods/AFNetworking@4.0.1",
+}
+
+var ComponentInvalidCocoapods = &cyclonedx.Component{
 	Type:        "library",
 	BOMRef:      "pkg:cocoapods/AppAuth@1.6.2#Core",
 	Name:        "AppAuth/Core",

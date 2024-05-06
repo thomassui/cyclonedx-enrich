@@ -31,20 +31,18 @@ func TestCocoapodsEnricher_Skip(t *testing.T) {
 }
 
 func TestCocoapodsEnricher_Enrich(t *testing.T) {
-	type args struct {
-		component *cyclonedx.Component
-	}
 	tests := []struct {
-		name    string
-		e       *CocoapodsEnricher
-		args    args
-		wantErr bool
+		name      string
+		component *cyclonedx.Component
+		wantErr   bool
 	}{
-		// TODO: Add test cases.
+		{name: "Test with invalid cocoapods package", component: utils.ComponentInvalidCocoapods, wantErr: true},
+		{name: "Test with cocoapods package", component: utils.ComponentCocoapods, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.e.Enrich(tt.args.component); (err != nil) != tt.wantErr {
+			e := &CocoapodsEnricher{}
+			if err := e.Enrich(tt.component); (err != nil) != tt.wantErr {
 				t.Errorf("CocoapodsEnricher.Enrich() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

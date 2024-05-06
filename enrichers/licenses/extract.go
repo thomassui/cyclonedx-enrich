@@ -42,5 +42,5 @@ func (e *ExtractEnricher) Enrich(component *cyclonedx.Component) error {
 
 	log.Info("No licenses", slog.String("package", purl))
 
-	return fmt.Errorf("component doesn't met criteria")
+	return nil
 }

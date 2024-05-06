@@ -44,7 +44,14 @@ func Request(url string) (resp *http.Response, err error) {
 
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Cache-Control", "stale-if-error")
-	return tp.RoundTrip(req)
+	r, err := tp.RoundTrip(req)
+
+	if r.StatusCode == 301 {
+		newURL, _ := r.Location()
+		return Request(newURL.String())
+	}
+
+	return r, err
 }
 
 func ReadFile(filename string, fn func(*os.File) error) error {

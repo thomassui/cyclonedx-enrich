@@ -31,20 +31,17 @@ func TestPyPiEnricher_Skip(t *testing.T) {
 }
 
 func TestPyPiEnricher_Enrich(t *testing.T) {
-	type args struct {
-		component *cyclonedx.Component
-	}
 	tests := []struct {
-		name    string
-		e       *PyPiEnricher
-		args    args
-		wantErr bool
+		name      string
+		component *cyclonedx.Component
+		wantErr   bool
 	}{
-		// TODO: Add test cases.
+		{name: "Test with pypi package", component: utils.ComponentPypi, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.e.Enrich(tt.args.component); (err != nil) != tt.wantErr {
+			e := &PyPiEnricher{}
+			if err := e.Enrich(tt.component); (err != nil) != tt.wantErr {
 				t.Errorf("PyPiEnricher.Enrich() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

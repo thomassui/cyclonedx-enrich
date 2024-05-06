@@ -37,7 +37,7 @@ func TestNPMEnricher_Enrich(t *testing.T) {
 		component *cyclonedx.Component
 		wantErr   bool
 	}{
-		// TODO: Add test cases.
+		{name: "Test with npm package", component: utils.ComponentNpm, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
