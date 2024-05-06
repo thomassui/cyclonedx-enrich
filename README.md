@@ -119,11 +119,10 @@ docker run --env-file ./.env -p 8080:8080 fnxpt/cyclonedx-enrich:latest --databa
 curl -X POST http://127.0.0.1:8080/sbom/enrich -H "X-Api-Key: DUMMY" -d @bom.json
 ```
 
-## Usage scenarios
+## Examples
 
-### Case 1:
+|Input|Output|
+|---|---|
+|[Bom 1](testdata/sbom/bom1.json)|[Result](testdata/sbom/bom1.json)|
 
-```cyclonedx-enrich --download-database --sbom-enrich mysbom.json```
-
-#TODO: See if possible to put link to compare 2 files
 
