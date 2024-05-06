@@ -15,7 +15,7 @@ func TestRegexpEnricher_Skip(t *testing.T) {
 		component cyclonedx.Component
 		want      bool
 	}{
-		//TODO: CONTINUE
+
 		{name: "Test without database with empty component", validEnv: false, component: *utils.ComponentEmpty, want: true},
 		{name: "Test without database with component with data", validEnv: false, component: *utils.ComponentWithData, want: true},
 		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, want: true},
@@ -43,7 +43,7 @@ func TestRegexpEnricher_Enrich(t *testing.T) {
 		component cyclonedx.Component
 		wantErr   bool
 	}{
-		//TODO: VALIDATE IF DATA WAS ADDED
+
 		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: false},
 		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false},
 	}

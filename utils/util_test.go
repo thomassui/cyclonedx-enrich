@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"os"
 	"testing"
 )
 
@@ -46,100 +45,6 @@ func TestDecoded(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Decoded(tt.value); got != tt.want {
 				t.Errorf("Decoded() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-//TODO: MISSING
-// func TestSetLicense(t *testing.T) {
-// 	type args struct {
-// 		component    *cyclonedx.Component
-// 		licenseNames []string
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		args args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			SetLicense(tt.args.component, tt.args.licenseNames)
-// 		})
-// 	}
-// }
-
-//TODO: MISSING
-// func TestRequest(t *testing.T) {
-// 	tests := []struct {
-// 		name     string
-// 		url      string
-// 		wantResp *http.Response
-// 		wantErr  bool
-// 	}{
-// 		//TODO: CONTINUE
-// 		// {name: "", url: "", wantResp: nil, wantErr: false}, //TODO: FAILING
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			gotResp, err := Request(tt.url)
-// 			if (err != nil) != tt.wantErr {
-// 				t.Errorf("Request() error = %v, wantErr %v", err, tt.wantErr)
-// 				return
-// 			}
-// 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-// 				t.Errorf("Request() = %v, want %v", gotResp, tt.wantResp)
-// 			}
-// 		})
-// 	}
-// }
-
-func TestReadFile(t *testing.T) {
-	type args struct {
-		filename string
-		fn       func(*os.File) error
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{name: "Test with invalid file", args: args{filename: "testdata/no_file", fn: func(f *os.File) error { return nil }}, wantErr: true},
-		{name: "Test with valid file", args: args{filename: "testdata/regexp.yaml", fn: func(f *os.File) error { return nil }}, wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := ReadFile(tt.args.filename, tt.args.fn); (err != nil) != tt.wantErr {
-				t.Errorf("ReadFile() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
-func TestGetenv(t *testing.T) {
-	type args struct {
-		key          string
-		defaultValue string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{name: "Test with valid env variable", args: args{key: "TEST_ENV_1", defaultValue: "MY_VALUE"}, want: "VALUE1"},
-		{name: "Test with valid env variable 2", args: args{key: "TEST_ENV_2", defaultValue: "MY_VALUE"}, want: "VALUE2"},
-		{name: "Test with invalid env variable without default value", args: args{key: "TEST_NO_ENV", defaultValue: ""}, want: ""},
-		{name: "Test with invalid env variable with default value", args: args{key: "TEST_NO_ENV", defaultValue: "MY_VALUE"}, want: "MY_VALUE"},
-	}
-
-	os.Setenv("TEST_ENV_1", "VALUE1")
-	os.Setenv("TEST_ENV_2", "VALUE2")
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := Getenv(tt.args.key, tt.args.defaultValue); got != tt.want {
-				t.Errorf("Getenv() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -16,7 +16,7 @@ func TestDatabaseEnricher_Skip(t *testing.T) {
 		component cyclonedx.Component
 		want      bool
 	}{
-		//TODO: CONTINUE
+
 		{name: "Test without database with empty component", validEnv: false, component: *utils.ComponentEmpty, want: true},
 		{name: "Test without database with component with data", validEnv: false, component: *utils.ComponentWithData, want: true},
 		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, want: true},
@@ -44,9 +44,9 @@ func TestDatabaseEnricher_Enrich(t *testing.T) {
 		component cyclonedx.Component
 		wantErr   bool
 	}{
-		//TODO: VALIDATE IF DATA WAS ADDED
+
 		{name: "Test without database with component without data", validEnv: false, component: *utils.ComponentWithoutData, wantErr: true},
-		// {name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false}, //TODO: FAILING
+		{name: "Test with component without data", validEnv: true, component: *utils.ComponentWithoutData, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

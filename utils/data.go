@@ -124,7 +124,6 @@ var ComponentCocoapods = &cyclonedx.Component{
 	PackageURL:  "pkg:cocoapods/AppAuth@1.6.2#Core",
 }
 
-// TODO: CHANGE COMPONENT
 var ComponentNpm = &cyclonedx.Component{
 	Type:       "library",
 	BOMRef:     "@angular/cdk@16.2.14|parse5@7.1.2",
@@ -134,7 +133,6 @@ var ComponentNpm = &cyclonedx.Component{
 	PackageURL: "pkg:npm/parse5@7.1.2",
 }
 
-// TODO: CHANGE COMPONENT
 var ComponentPypi = &cyclonedx.Component{
 	Type:        "framework",
 	BOMRef:      "pkg:pypi/aiohttp@3.9.5",

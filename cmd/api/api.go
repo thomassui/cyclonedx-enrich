@@ -30,7 +30,6 @@ var storeCache persistence.CacheStore
 
 func AuthorizeRequest(isPublic bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		//TODO: DEFER???
 		if c.Request.Method == "OPTIONS" {
 			return
 		}

@@ -28,20 +28,3 @@ func TestConnectDatabase(t *testing.T) {
 		})
 	}
 }
-
-//TODO: NOT REALLY SURE HOW TO TEST THIS
-// func TestRegister(t *testing.T) {
-// 	tests := []struct {
-// 		name    string
-// 		wantErr bool
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			if err := Register(); (err != nil) != tt.wantErr {
-// 				t.Errorf("Register() error = %v, wantErr %v", err, tt.wantErr)
-// 			}
-// 		})
-// 	}
-// }
