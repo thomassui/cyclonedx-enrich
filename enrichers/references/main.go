@@ -1,8 +1,9 @@
 package references
 
 import (
-	"cyclonedx-enrich/models"
 	"log/slog"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

@@ -1,6 +1,6 @@
 package api
 
-import "cyclonedx-enrich/models"
+import "github.com/fnxpt/cyclonedx-enrich/models"
 
 type ApiCMD struct {
 	models.Commandable

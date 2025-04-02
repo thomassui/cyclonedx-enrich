@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"cyclonedx-enrich/cmd/sbom"
+	"github.com/fnxpt/cyclonedx-enrich/cmd/sbom"
 
 	"github.com/gin-gonic/gin"
 )

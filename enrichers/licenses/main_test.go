@@ -1,9 +1,10 @@
 package licenses
 
 import (
-	"cyclonedx-enrich/utils"
 	"os"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func setup(tb testing.TB, valid bool) func(tb testing.TB) {

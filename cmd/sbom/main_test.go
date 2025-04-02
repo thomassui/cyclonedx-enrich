@@ -1,9 +1,10 @@
 package sbom
 
 import (
-	"cyclonedx-enrich/models"
 	"reflect"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 func TestSbomCMD_Commands(t *testing.T) {

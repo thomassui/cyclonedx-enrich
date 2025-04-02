@@ -1,11 +1,12 @@
 package utils
 
 import (
-	"cyclonedx-enrich/models"
 	"errors"
 	"fmt"
 	"log/slog"
 	"os"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"gorm.io/driver/sqlite"

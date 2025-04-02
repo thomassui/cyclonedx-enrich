@@ -1,11 +1,12 @@
 package utils
 
 import (
-	"cyclonedx-enrich/models"
 	"fmt"
 	"log/slog"
 	"os"
 	"regexp"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"gopkg.in/yaml.v3"

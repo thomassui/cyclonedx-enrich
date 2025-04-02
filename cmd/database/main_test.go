@@ -1,9 +1,10 @@
 package database
 
 import (
-	"cyclonedx-enrich/models"
 	"reflect"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 func TestDatabaseCMD_Commands(t *testing.T) {

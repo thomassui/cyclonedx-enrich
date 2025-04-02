@@ -1,10 +1,11 @@
 package utils
 
 import (
-	"cyclonedx-enrich/models"
 	"os"
 	"reflect"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 func TestLoadRules(t *testing.T) {

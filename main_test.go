@@ -1,10 +1,10 @@
 package main
 
 import (
-	"cyclonedx-enrich/models"
 	"reflect"
 	"testing"
 
+	"github.com/fnxpt/cyclonedx-enrich/models"
 	_ "github.com/joho/godotenv/autoload"
 )
 

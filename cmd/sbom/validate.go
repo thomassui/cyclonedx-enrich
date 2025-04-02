@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"cyclonedx-enrich/utils"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func validateFiles(expression string) error {

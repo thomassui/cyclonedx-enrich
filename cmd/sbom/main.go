@@ -1,8 +1,9 @@
 package sbom
 
 import (
-	"cyclonedx-enrich/models"
 	"log/slog"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 var log = slog.Default()

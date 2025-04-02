@@ -1,8 +1,9 @@
 package managers
 
 import (
-	"cyclonedx-enrich/utils"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

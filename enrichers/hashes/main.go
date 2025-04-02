@@ -1,10 +1,10 @@
 package hashes
 
 import (
-	"cyclonedx-enrich/models"
 	"log/slog"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 var log = slog.Default()

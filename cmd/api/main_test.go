@@ -1,9 +1,10 @@
 package api
 
 import (
-	"cyclonedx-enrich/models"
 	"reflect"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 func TestApiCMD_Commands(t *testing.T) {

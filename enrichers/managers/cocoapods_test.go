@@ -1,10 +1,10 @@
 package managers
 
 import (
-	"cyclonedx-enrich/utils"
 	"testing"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func TestCocoapodsEnricher_Skip(t *testing.T) {

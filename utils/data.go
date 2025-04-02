@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"cyclonedx-enrich/models"
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
