@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"cyclonedx-enrich/utils"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/gin-contrib/cache"
 	"github.com/gin-contrib/cache/persistence"

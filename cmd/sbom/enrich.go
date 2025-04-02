@@ -11,14 +11,14 @@ import (
 	"reflect"
 	"strconv"
 
-	"cyclonedx-enrich/enrichers/hashes"
-	"cyclonedx-enrich/enrichers/licenses"
-	"cyclonedx-enrich/enrichers/managers"
-	"cyclonedx-enrich/enrichers/properties"
-	"cyclonedx-enrich/enrichers/references"
-	"cyclonedx-enrich/models"
+	"github.com/fnxpt/cyclonedx-enrich/enrichers/hashes"
+	"github.com/fnxpt/cyclonedx-enrich/enrichers/licenses"
+	"github.com/fnxpt/cyclonedx-enrich/enrichers/managers"
+	"github.com/fnxpt/cyclonedx-enrich/enrichers/properties"
+	"github.com/fnxpt/cyclonedx-enrich/enrichers/references"
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
-	"cyclonedx-enrich/utils"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

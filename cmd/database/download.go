@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"cyclonedx-enrich/utils"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	getter "github.com/hashicorp/go-getter/v2"
 )

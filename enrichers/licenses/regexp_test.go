@@ -3,9 +3,8 @@ package licenses
 import (
 	"testing"
 
-	"cyclonedx-enrich/utils"
-
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func TestRegexpEnricher_Skip(t *testing.T) {

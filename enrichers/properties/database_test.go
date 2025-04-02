@@ -3,7 +3,7 @@ package properties
 import (
 	"testing"
 
-	"cyclonedx-enrich/utils"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

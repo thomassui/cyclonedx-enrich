@@ -1,12 +1,13 @@
 package managers
 
 import (
-	"cyclonedx-enrich/utils"
 	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"strings"
+
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

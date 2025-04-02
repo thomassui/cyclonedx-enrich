@@ -1,11 +1,12 @@
 package main
 
 import (
-	"cyclonedx-enrich/cmd/api"
-	"cyclonedx-enrich/cmd/database"
-	"cyclonedx-enrich/cmd/sbom"
-	"cyclonedx-enrich/models"
 	"flag"
+
+	"github.com/fnxpt/cyclonedx-enrich/cmd/api"
+	"github.com/fnxpt/cyclonedx-enrich/cmd/database"
+	"github.com/fnxpt/cyclonedx-enrich/cmd/sbom"
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	_ "github.com/joho/godotenv/autoload"
 )

@@ -1,9 +1,10 @@
 package properties
 
 import (
-	"cyclonedx-enrich/utils"
 	"os"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

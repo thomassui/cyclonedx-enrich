@@ -1,11 +1,11 @@
 package licenses
 
 import (
-	"cyclonedx-enrich/models"
-	"cyclonedx-enrich/utils"
 	"log/slog"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/models"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 var log = slog.Default()

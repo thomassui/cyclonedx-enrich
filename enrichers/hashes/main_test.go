@@ -1,11 +1,11 @@
 package hashes
 
 import (
-	"cyclonedx-enrich/utils"
 	"os"
 	"testing"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func setup(tb testing.TB, valid bool) func(tb testing.TB) {

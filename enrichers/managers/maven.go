@@ -1,11 +1,12 @@
 package managers
 
 import (
-	"cyclonedx-enrich/models"
 	"fmt"
 	"io"
 	"log/slog"
 	"strings"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/vifraa/gopom"

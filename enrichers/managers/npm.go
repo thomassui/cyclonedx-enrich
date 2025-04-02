@@ -1,9 +1,10 @@
 package managers
 
 import (
-	"cyclonedx-enrich/models"
-	"cyclonedx-enrich/utils"
 	"fmt"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

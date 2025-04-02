@@ -2,12 +2,12 @@ package managers
 
 import (
 	"crypto/md5"
-	"cyclonedx-enrich/models"
 	"encoding/hex"
 	"fmt"
 	"strings"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/models"
 )
 
 var cocoapodsEndpoint = "https://cdn.cocoapods.org"

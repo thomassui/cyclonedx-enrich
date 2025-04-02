@@ -1,10 +1,10 @@
 package hashes
 
 import (
-	"cyclonedx-enrich/utils"
 	"testing"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 func TestRegexpEnricher_Skip(t *testing.T) {

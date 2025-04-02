@@ -1,10 +1,11 @@
 package sbom
 
 import (
-	"cyclonedx-enrich/models"
 	"io"
 	"reflect"
 	"testing"
+
+	"github.com/fnxpt/cyclonedx-enrich/models"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )

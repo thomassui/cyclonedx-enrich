@@ -2,7 +2,6 @@ package licenses
 
 import (
 	"bytes"
-	"cyclonedx-enrich/utils"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -10,6 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/fnxpt/cyclonedx-enrich/utils"
 )
 
 type ExtractEnricher struct {
