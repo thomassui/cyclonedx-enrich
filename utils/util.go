@@ -34,7 +34,9 @@ func SetLicense(component *cyclonedx.Component, licenseNames []string) {
 	licenses := make([]cyclonedx.LicenseChoice, 0)
 
 	for _, item := range licenseNames {
-		licenses = append(licenses, cyclonedx.LicenseChoice{License: &cyclonedx.License{Name: item}})
+		if len(item) > 0 {
+			licenses = append(licenses, cyclonedx.LicenseChoice{License: &cyclonedx.License{Name: item}})
+		}
 	}
 
 	component.Licenses = (*cyclonedx.Licenses)(&licenses)
