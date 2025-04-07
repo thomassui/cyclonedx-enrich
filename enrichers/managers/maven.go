@@ -39,7 +39,9 @@ func (e *MavenEnricher) Enrich(component *cyclonedx.Component) error {
 
 		if item.Licenses != nil {
 			for _, item := range *item.Licenses {
-				licenses = append(licenses, *item.Name)
+				if item.Name != nil && len(*item.Name) > 0 {
+					licenses = append(licenses, *item.Name)
+				}
 			}
 		}
 

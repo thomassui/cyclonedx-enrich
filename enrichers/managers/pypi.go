@@ -32,7 +32,7 @@ func (e *PyPiEnricher) Enrich(component *cyclonedx.Component) error {
 		references := make(map[string]string)
 		properties := make(map[string]string)
 
-		if item.Info.License != nil {
+		if item.Info.License != nil && len(*item.Info.License) > 0 {
 			licenses = append(licenses, *item.Info.License)
 		}
 
