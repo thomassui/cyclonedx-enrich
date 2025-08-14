@@ -64,8 +64,13 @@ func EnrichRules(component *cyclonedx.Component, fn func(item *models.RuleEntry)
 		if err != nil {
 			return err
 		}
-
-		if r.MatchString(GetRealPurl(component.PackageURL)) {
+		// Make it possible to enrich components from typ "file" there the purl is typically empty
+		// but component name instead is an idenetifier to match it
+		if component.Type == cyclonedx.ComponentTypeFile && component.PackageURL == "" {
+			if r.MatchString(component.Name) {
+				fn(&item)
+			}
+		} else if r.MatchString(GetRealPurl(component.PackageURL)) {
 			fn(&item)
 		}
 	}

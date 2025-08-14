@@ -12,6 +12,39 @@
           "purl": "pkg:npm/drmonty-datatables-colvis@1.1.2"
       },
       {
+          "bom-ref": "ed464fdeb0db9907",
+          "type": "file",
+          "name": "/ws/tool/tool-15.1-2-jar-with-dependencies.jar",
+          "hashes": [
+          {
+              "alg": "SHA-512",
+              "content": "efa56ac324876544d6336064183602baea701df8dfc6bdc1a940176bcf158daf2ff3bd57aef4a1ecdd7eb251abd0455c14b9ac58684a9793a3a87108605e4386"
+          }
+          ]
+      },
+      {
+          "bom-ref": "c1d10a8bd96fefb9",
+          "type": "file",
+          "name": "/ws/messenger-client/messenger-client-15.1-2.zip",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "cce9f98fa17e496567c35959421795dc949f13ef3f4160c49756ab26298a3109761250058b1a7e986f009d5f9c81a7cc997420d536e103319dd24fdda2dd7d2a"
+            }
+          ]
+      },
+      {
+          "bom-ref": "bff0a3d2b311c007",
+          "type": "file",
+          "name": "/ws/ear/standard/ear-15.1.1.ear",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "d6bd63836614e4c3fb4b633b518eb91b81f8a3927e06499416d5da7ed29853fd5f2ebda163424e9f71f4aa9a406ac9da1223f688e932d496d157ce7c8b184723"
+            }
+          ]
+      },
+      {
           "bom-ref": "pkg:maven/org.javamoney/moneta@1.4?type=pom",
           "type": "library",
           "group": "org.javamoney",

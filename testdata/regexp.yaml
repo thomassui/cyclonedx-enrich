@@ -1,3 +1,27 @@
+- rule: .*\.jar
+  properties:
+    bsi:component:archive: archive 
+    bsi:component:structured: structured 
+    bsi:component:executable: executable 
+- rule: .*\.war
+  properties:
+    bsi:component:archive: archive 
+    bsi:component:structured: structured 
+    bsi:component:executable: executable 
+- rule: .*\.ear
+  properties:
+    bsi:component:archive: archive 
+    bsi:component:structured: structured 
+    bsi:component:executable: executable 
+- rule: .*\.zip
+  properties:
+    bsi:component:archive: archive 
+    bsi:component:structured: structured 
+    bsi:component:executable: non-executable 
+# rules which shall match the component from type file based on the file name
+- rule: .*ear/standard/ear-.*\.ear
+  licenses:
+    - Company xyz license
 - rule: .*com.example.*
   licenses:
     - Example License

@@ -21,7 +21,16 @@ func hasKey(properties []cyclonedx.Property, key string) bool {
 }
 
 func skip(component *cyclonedx.Component) bool {
-	return component == nil || len(component.PackageURL) == 0
+	if component == nil {
+		return true
+	}
+	// Make it possible to enrich components from typ "file" there the purl is typically empty
+	// but name instead is an idenetifier to match it
+	if len(component.PackageURL) == 0 && component.Type == cyclonedx.ComponentTypeFile && len(component.Name) > 0 {
+		return false
+	} else {
+		return len(component.PackageURL) == 0
+	}
 }
 
 func enrich(component *cyclonedx.Component, items map[string]string) error {
